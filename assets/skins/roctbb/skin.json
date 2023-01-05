@@ -1,0 +1,77 @@
+{
+  "start": {
+    "none": [
+      {
+        "len": 10,
+        "image": "start/1.png"
+      }
+    ]
+  },
+  "standing": {
+    "none": [
+      {
+        "none_1" : {
+          "len" : 10,
+          "image_1": "standing/none/1.png"
+        },
+        "none_2" : {
+          "len" : 10,
+          "image_2": "standing/none/2.png"
+        }
+
+      }
+    ],
+    "hit_hand" : [
+      {
+        "len" : 10,
+        "image" : "standing/hit_hand/1.png"
+      }
+    ],
+    "hit_leg" : [
+      {
+        "len" : 10,
+        "image" : "standing/hit_leg/1.png"
+      }
+    ]
+  },
+  "sit": {
+      "none" : [
+        {
+          "len": 10,
+          "image": "sit/none/1.png"
+        }
+      ],
+      "hit_hand" : [
+        {
+          "len" : 10,
+          "image" : "sit/hit_hand/1.png"
+        }
+      ],
+      "hit_leg" : [
+        {
+          "len" : 10,
+          "image" : "sit/hit_leg/1.png"
+        }
+      ]
+    },
+  "jump" : {
+    "none" : [
+      {
+        "len": 10,
+        "image": "jump/none/1.png"
+      }
+    ],
+    "hit_hand" : [
+      {
+        "len" : 10,
+        "image" : "jump/hit_hand/1.png"
+      }
+    ],
+    "hit_leg" : [
+      {
+        "len" : 10,
+        "image" : "jump/hit_leg/1.png"
+      }
+    ]
+  }
+}
