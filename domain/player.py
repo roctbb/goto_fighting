@@ -13,6 +13,8 @@ class Player(Object):
         self.__skin = skin
         self.__speed = 10
         self.__jump_speed = 25
+        self._width = 100
+        self._height = 100
 
     @property
     def hp(self):
@@ -30,7 +32,11 @@ class Player(Object):
         pass
 
     # перемещение
-    def sit_down(self):
+    def sit(self):
+        self._height = self._height // 2
+
+    def stand(self):
+        self._height = self._height * 2
 
 
     def jump(self):
@@ -39,7 +45,6 @@ class Player(Object):
             self.move_by(0, self.__jump_speed)
         else:
             pass
-
 
     def right(self):
         self.move_by(self.__speed, 0)
@@ -53,10 +58,9 @@ class Player(Object):
         else:
             self.move_by(0, self.__jump_speed)
             self.__jump_speed += self.GRAVITY
-
-
     # графика
     def draw(self):
         self.update()
-        rect = self._screen.canvas.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height, fill="ivory3")
+        rect = self._screen.canvas.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height,
+                                                    fill="ivory3")
         self._screen.add_object(rect)
