@@ -31,12 +31,11 @@ def draw_all():
     window.after(20, draw_all)
 
 
-
 window = Tk()
 screen = Screen(window)
 
-player1 = Player(50, 50, 'right', screen, None)
-player2 = Player(150, 50, 'left', screen, None)
+player1 = Player(200, 250, 'right', screen, None)
+player2 = Player(350, 250, 'left', screen, None)
 
 window.bind("<KeyPress>", key_handler)
 window.after(20, draw_all)
