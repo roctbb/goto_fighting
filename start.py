@@ -37,6 +37,14 @@ def key_release_handler(event):
         player1.stand()
     if event.char == 'k':
         player2.stand()
+    if event.char == 'a':
+        player1.stop()
+    if event.char == 'd':
+        player1.stop()
+    if event.char == 'l':
+        player2.stop()
+    if event.char == 'j':
+        player2.stop()
 
 
 def draw_all():

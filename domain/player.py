@@ -18,6 +18,7 @@ class Player(Object):
         self.__hit_state = HitState.NO
         self.__hit_timer = 0
         self.__jump_speed = 25
+        self.__move_speed = 0
         self._width = 100
         self._height = 100
 
@@ -58,11 +59,13 @@ class Player(Object):
             self.__move_state = MoveState.SIT
             self._height = self._height // 2
             self.move_by(0, self._height // 2)
+
     def stand(self):
         if self.__move_state == MoveState.SIT:
             self._height = self._height * 2
             self.__move_state = MoveState.STAND
             self.move_by(0, self._height // 2)
+
     def jump(self):
         if self.__jump_speed == 0:
             self.__jump_speed = -25
@@ -71,10 +74,13 @@ class Player(Object):
             pass
 
     def right(self):
-        self.move_by(self.__speed, 0)
+        self.__move_speed = 10
 
     def left(self):
-        self.move_by(-self.__speed, 0)
+        self.__move_speed = -10
+
+    def stop(self):
+        self.__move_speed = 0
 
     def update(self):
         if self.__hit_timer == 0:
@@ -87,6 +93,8 @@ class Player(Object):
         else:
             self.move_by(0, self.__jump_speed)
             self.__jump_speed += self.GRAVITY
+
+        self.move_by(self.__move_speed, 0)
 
     # графика
     def draw(self):
