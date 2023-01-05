@@ -26,17 +26,18 @@ class Player(Object):
 
     # перемещение
     def sit_down(self):
-        pass
+        self._y += 1
 
     def jump(self):
-        pass
+        self._y -= 1
 
     def forward(self):
-        pass
+        self._x += 1
 
     def backward(self):
-        pass
+        self._x -= 1
 
     # графика
     def draw(self, canvas):
-        canvas.create_rectangle(self.x, self.y, self.x + 100,self.y + 100, fill="ivory3")
+        self.clear(canvas)
+        self._add_object(canvas.create_rectangle(self.x, self.y, self.x + 100,self.y + 100, fill="ivory3"))
