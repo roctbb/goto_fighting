@@ -18,11 +18,11 @@ class Object:
 
     @property
     def width(self):
-        return self._height
+        return self._width
 
     @property
     def height(self):
-        return self._width
+        return self._height
 
     def draw(self):
         pass
