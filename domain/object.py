@@ -27,8 +27,10 @@ class Object:
         pass
 
     def move_by(self, vx, vy):
-        self._x += vx
-        self._y += vy
+        if self.x + vx >= 0 and self.x + vx + self.width <= self._screen.width:
+            self._x += vx
+        if self.y + vy >= 0 and self.y + vy + self.height <= self._screen.height:
+            self._y += vy
 
     def move_to(self, x, y):
         self._x = x
