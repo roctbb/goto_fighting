@@ -4,7 +4,7 @@ from domain.skin import Skin
 
 class Player(Object):
     def __init__(self, x: int, y: int, direction: str, skin: Skin):
-        self.__init__(x, y)
+        super().__init__(x, y)
         self.__hp = 100
         self.__direction = direction
         self.__skin = skin
@@ -36,3 +36,7 @@ class Player(Object):
 
     def backward(self):
         pass
+
+    # графика
+    def draw(self, canvas):
+        canvas.create_rectangle(self.x, self.y, self.x + 100,self.y + 100, fill="ivory3")

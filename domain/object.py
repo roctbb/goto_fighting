@@ -11,7 +11,7 @@ class Object:
     def y(self):
         return self._y
 
-    def draw(self):
+    def draw(self, canvas):
         pass
 
     def move_by(self, vx, vy):
