@@ -13,6 +13,10 @@ def key_handler(event):
         player1.sit_down()
     if event.char == 'd':
         player1.right()
+    if event.char == 'q':
+        player1.hit_leg()
+    if event.char == 'e':
+        player1.hit_hand()
 
     if event.char == 'i':
         player2.jump()
@@ -22,12 +26,22 @@ def key_handler(event):
         player2.sit_down()
     if event.char == 'j':
         player2.left()
+    if event.char == 'u':
+        player2.hit_leg()
+    if event.char == 'o':
+        player2.hit_hand()
 
 
 def draw_all():
     screen.clear()
     player1.draw()
     player2.draw()
+
+    if player1.intersects_with(player2):
+        print("Пересечение")
+
+        # TODO Если player1 в состоянии атаки, нанести второму игроку урон в размере силы атаки первого игрока
+
     window.after(20, draw_all)
 
 
