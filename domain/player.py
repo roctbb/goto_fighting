@@ -1,3 +1,5 @@
+import time
+
 from domain.object import Object
 from domain.skin import Skin
 from gui.screen import Screen
@@ -28,10 +30,15 @@ class Player(Object):
 
     # перемещение
     def sit_down(self):
-        self._y += self.__speed
+        if self._y + self.__speed + self.width <= self._screen.width:
+            self._y += self.__speed
 
     def jump(self):
-        self._y -= self.__speed
+        if self._y - self.__speed >= 0:
+            self._y -= self.__speed
+        '''while self._y - self.__speed + self.width <= self._screen.width:
+            time.sleep(1)
+            self.__speed -= 1'''
 
     def right(self):
         print(self._screen.width)
@@ -44,5 +51,6 @@ class Player(Object):
 
     # графика
     def draw(self):
-        rect = self._screen.canvas.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height, fill="ivory3")
+        rect = self._screen.canvas.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height,
+                                                    fill="ivory3")
         self._screen.add_object(rect)
