@@ -1,6 +1,8 @@
+import json
 from tkinter import *
 
 from domain.player import Player
+from domain.skin import Skin
 from domain.states import Direction
 from gui.screen import Screen
 
@@ -62,14 +64,16 @@ def draw_all():
 
     window.after(20, draw_all)
 
-    if player1
-
 
 window = Tk()
 screen = Screen(window)
 
-player1 = Player(200, 250, Direction.RIGHT, screen, None)
-player2 = Player(350, 250, Direction.LEFT, screen, None)
+with open('assets/skins/roctbb/skin.json') as file:
+    data = json.load(file)
+skin = Skin(data)
+
+player1 = Player(200, 250, Direction.RIGHT, screen, skin)
+player2 = Player(350, 250, Direction.LEFT, screen, skin)
 
 window.bind("<KeyPress>", key_press_handler)
 window.bind("<KeyRelease>", key_release_handler)
