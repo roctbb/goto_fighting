@@ -28,19 +28,16 @@ class Player(Object):
 
     # перемещение
     def sit_down(self):
-        self._y += self.__speed
+        self.move_by(0, self.__speed)
 
     def jump(self):
-        self._y -= self.__speed
+        self.move_by(0, -self.__speed)
 
     def right(self):
-        print(self._screen.width)
-        if self._x + self.__speed + self.width <= self._screen.width:
-            self._x += self.__speed
+        self.move_by(self.__speed, 0)
 
     def left(self):
-        if self._x - self.__speed >= 0:
-            self._x -= self.__speed
+        self.move_by(-self.__speed, 0)
 
     # графика
     def draw(self):
