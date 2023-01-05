@@ -1,8 +1,11 @@
 class Object:
-    def __init__(self, x, y):
+    def __init__(self, x, y, w, h, screen):
         self._x = x
         self._y = y
-        self.__screen_objects = []
+        self._width = w
+        self._height = h
+        self._screen = screen
+
 
     @property
     def x(self):
@@ -12,7 +15,15 @@ class Object:
     def y(self):
         return self._y
 
-    def draw(self, canvas):
+    @property
+    def width(self):
+        return self._height
+
+    @property
+    def height(self):
+        return self._width
+
+    def draw(self):
         pass
 
     def move_by(self, vx, vy):
@@ -22,11 +33,3 @@ class Object:
     def move_to(self, x, y):
         self._x = x
         self._x = y
-
-    def _add_object(self, obj):
-        self.__screen_objects.append(obj)
-
-    def clear(self, canvas):
-        for obj in self.__screen_objects:
-            canvas.delete(obj)
-        self.__screen_objects = []
