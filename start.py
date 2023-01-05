@@ -62,7 +62,26 @@ def draw_all():
 
     window.after(20, draw_all)
 
-    if player1
+    if player1.x < player2.x and player1.direction == Direction.LEFT:
+        player1.flip()
+    else:
+        pass
+
+    if player1.x > player2.x and player1.direction == Direction.RIGHT:
+        player1.flip()
+    else:
+        pass
+
+    if player2.x < player1.x and player2.direction == Direction.LEFT:
+        player2.flip()
+    else:
+        pass
+
+    if player2.x > player1.x and player2.direction == Direction.RIGHT:
+        player2.flip()
+    else:
+        pass
+
 
 
 window = Tk()
