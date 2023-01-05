@@ -12,3 +12,7 @@ class HitState(Enum):
     NO = "no"
     HAND = "hand"
     LEG = "leg"
+
+class Direction(Enum):
+    LEFT = "left"
+    RIGHT = "right"

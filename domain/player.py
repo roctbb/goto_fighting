@@ -1,6 +1,6 @@
 from domain.object import Object
 from domain.skin import Skin
-from domain.states import MoveState, HitState
+from domain.states import MoveState, HitState, Direction
 from gui.screen import Screen
 
 
@@ -8,7 +8,7 @@ class Player(Object):
     LEG_POWER = 10
     HAND_POWER = 5
 
-    def __init__(self, x: int, y: int, direction: str, screen: Screen, skin: Skin):
+    def __init__(self, x: int, y: int, direction, screen: Screen, skin: Skin):
         super().__init__(x, y, 100, 100, screen)
         self.__hp = 100
         self.__direction = direction
@@ -25,6 +25,10 @@ class Player(Object):
     @property
     def hp(self):
         return self.__hp
+
+    @property
+    def direction(self):
+        return self.__direction
 
     # получить урон
     def make_damage(self, amount):
@@ -82,6 +86,13 @@ class Player(Object):
     def stop(self):
         self.__move_speed = 0
 
+    def flip(self):
+        if self.__direction == Direction.LEFT:
+            self.__direction = Direction.RIGHT
+        else:
+            self.__direction = Direction.LEFT
+
+
     def update(self):
         if self.__hit_timer == 0:
             self.__hit_state = HitState.NO
@@ -106,3 +117,10 @@ class Player(Object):
         rect = self._screen.canvas.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height,
                                                     fill=color)
         self._screen.add_object(rect)
+
+        if self.__direction == Direction.RIGHT:
+            eye = self._screen.canvas.create_oval(self.x + self.width - 20, self.y + 20, self.x + self.width, self.y + 40, fill="black")
+        else:
+            eye = self._screen.canvas.create_oval(self.x, self.y + 20, self.x + 20,
+                                                  self.y + 40, fill="black")
+        self._screen.add_object(eye)

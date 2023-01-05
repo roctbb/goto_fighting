@@ -1,6 +1,7 @@
 from tkinter import *
 
 from domain.player import Player
+from domain.states import Direction
 from gui.screen import Screen
 
 
@@ -52,6 +53,8 @@ def draw_all():
     player1.draw()
     player2.draw()
 
+    # TODO: зеркалить игроков если нужно
+
     if player1.intersects_with(player2):
         print("Пересечение")
 
@@ -59,12 +62,14 @@ def draw_all():
 
     window.after(20, draw_all)
 
+    if player1
+
 
 window = Tk()
 screen = Screen(window)
 
-player1 = Player(200, 250, 'right', screen, None)
-player2 = Player(350, 250, 'left', screen, None)
+player1 = Player(200, 250, Direction.RIGHT, screen, None)
+player2 = Player(350, 250, Direction.LEFT, screen, None)
 
 window.bind("<KeyPress>", key_press_handler)
 window.bind("<KeyRelease>", key_release_handler)
