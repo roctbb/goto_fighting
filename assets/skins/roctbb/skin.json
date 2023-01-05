@@ -1,76 +1,73 @@
 {
   "start": {
-    "none": [
+    "no": [
       {
         "len": 10,
-        "image": "start/1.png"
+        "image": "/skins/roctbb/start/1.png"
       }
     ]
   },
-  "standing": {
-    "none": [
+  "stand": {
+    "no": [
       {
-        "none_1" : {
-          "len" : 10,
-          "image_1": "standing/none/1.png"
-        },
-        "none_2" : {
-          "len" : 10,
-          "image_2": "standing/none/2.png"
-        }
-
+        "len": 10,
+        "image": "/skins/roctbb/stand/no/1.png"
+      },
+      {
+        "len": 10,
+        "image": "/skins/roctbb/stand/no/2.png"
       }
     ],
-    "hit_hand" : [
+    "hit_hand": [
       {
-        "len" : 10,
-        "image" : "standing/hit_hand/1.png"
+        "len": 10,
+        "image": "/skins/roctbb/stand/hit_hand/1.png"
       }
     ],
-    "hit_leg" : [
+    "hit_leg": [
       {
-        "len" : 10,
-        "image" : "standing/hit_leg/1.png"
+        "len": 10,
+        "image": "/skins/roctbb/stand/hit_leg/1.png"
       }
     ]
   },
   "sit": {
-      "none" : [
-        {
-          "len": 10,
-          "image": "sit/none/1.png"
-        }
-      ],
-      "hit_hand" : [
-        {
-          "len" : 10,
-          "image" : "sit/hit_hand/1.png"
-        }
-      ],
-      "hit_leg" : [
-        {
-          "len" : 10,
-          "image" : "sit/hit_leg/1.png"
-        }
-      ]
-    },
-  "jump" : {
-    "none" : [
+    "no": [
       {
         "len": 10,
-        "image": "jump/none/1.png"
+        "image": "/skins/roctbb/sit/no/1.png"
       }
     ],
-    "hit_hand" : [
+    "hit_hand": [
       {
-        "len" : 10,
-        "image" : "jump/hit_hand/1.png"
+        "len": 10,
+        "image": "/skins/roctbb/sit/hit_hand/1.png"
       }
     ],
-    "hit_leg" : [
+    "hit_leg": [
       {
-        "len" : 10,
-        "image" : "jump/hit_leg/1.png"
+        "len": 10,
+        "image": "/skins/roctbb/sit/hit_leg/1.png"
+      }
+    ]
+  },
+  "jump": {
+    "no": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/jump/no/1.png"
+      }
+    ],
+    "hit_hand": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/jump/hit_hand/1.png"
+      }
+    ],
+    "hit_leg": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/jump/hit_leg/1.png"
       }
     ]
   }

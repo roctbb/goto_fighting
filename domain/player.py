@@ -2,6 +2,7 @@ from domain.object import Object
 from domain.skin import Skin
 from domain.states import MoveState, HitState, Direction
 from gui.screen import Screen
+from tkinter import NW
 
 
 class Player(Object):
@@ -114,13 +115,5 @@ class Player(Object):
         color = "green"
         if self.is_attacking:
             color = "red"
-        rect = self._screen.canvas.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height,
-                                                    fill=color)
+        rect = self._screen.canvas.create_image(self.x, self.y, image=self.__skin.get_image(self.direction, self.__move_state, self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
-
-        if self.__direction == Direction.RIGHT:
-            eye = self._screen.canvas.create_oval(self.x + self.width - 20, self.y + 20, self.x + self.width, self.y + 40, fill="black")
-        else:
-            eye = self._screen.canvas.create_oval(self.x, self.y + 20, self.x + 20,
-                                                  self.y + 40, fill="black")
-        self._screen.add_object(eye)
