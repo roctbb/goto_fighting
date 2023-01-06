@@ -9,9 +9,8 @@ class Ball(Object):
     HEIGHT = 50
 
     def __init__(self, x, y, direction, animation, screen):
-        super().__init__(x, y, self.WIDTH, self.HEIGHT, screen)
+        super().__init__(x, y, self.WIDTH, self.HEIGHT, direction, screen)
         self.__speed = self.SPEED
-        self.__direction = direction
         self.__animation = animation
 
     def draw(self):
@@ -21,9 +20,9 @@ class Ball(Object):
 
 
     def update(self):
-        if self.__direction == Direction.LEFT:
+        if self._direction == Direction.LEFT:
             self._x += -self.__speed
-        if self.__direction == Direction.RIGHT:
+        if self._direction == Direction.RIGHT:
             self._x += self.__speed
 
 

@@ -107,21 +107,21 @@ class Game:
                 self.__balls.remove(ball)
 
         if self.__player1.intersects_with(self.__player2):
-            if self.__player1.is_attacking:
+            if self.__player1.get_intersection_with(self.__player2) > self.__player1.width / 3:
                 self.__player2.make_damage(self.__player1.attack_power)
                 self.__player1.cooldown()
 
-        if self.__player2.intersects_with(self.__player1):
+        if self.__player2.get_intersection_with(self.__player1) > self.__player2.width / 3:
             if self.__player2.is_attacking:
                 self.__player1.make_damage(self.__player2.attack_power)
                 self.__player2.cooldown()
 
         for ball in self.__balls:
-            if self.__player2.intersects_with(ball):
+            if self.__player2.get_intersection_with(ball) > self.__player2.width / 2:
                 print("ball intersects with player 2")
                 self.__player2.make_damage(ball.attack_power)
                 ball.die()
-            if self.__player1.intersects_with(ball):
+            if self.__player1.get_intersection_with(ball) > self.__player1.width / 2:
                 print("ball intersects with player 1")
                 self.__player1.make_damage(ball.attack_power)
                 ball.die()

@@ -22,11 +22,10 @@ class Player(Object):
         else:
             x, y = screen.width - int(skin.width * 1.5), screen.height - skin.height
 
-        super().__init__(x, y, skin.width, skin.height, screen)
+        super().__init__(x, y, skin.width, skin.height, direction, screen)
 
         self.__initial_height = skin.height
         self.__hp = 100
-        self.__direction = direction
         self.__skin = skin
         self.__speed = 10
         self.__move_state = MoveState.STAND
@@ -42,7 +41,7 @@ class Player(Object):
 
     @property
     def direction(self):
-        return self.__direction
+        return self._direction
 
     # получить урон
     def make_damage(self, amount):
@@ -124,12 +123,6 @@ class Player(Object):
 
     def stop(self):
         self.__move_speed = 0
-
-    def flip(self):
-        if self.__direction == Direction.LEFT:
-            self.__direction = Direction.RIGHT
-        else:
-            self.__direction = Direction.LEFT
 
     def update(self):
         if self.__cooldown_timer > 0:
