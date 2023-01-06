@@ -67,7 +67,6 @@ class Game:
             self.__player2.hit_hand()
         if event.char == 'h':
             ball = self.__player2.shot()
-            print(ball.x, ball.y)
             self.__balls.append(ball)
 
     def __key_release_handler(self, event):
@@ -116,6 +115,8 @@ class Game:
 
         if self.__player2.x > self.__player1.x and self.__player2.direction == Direction.RIGHT:
             self.__player2.flip()
+
+
 
         self.__screen.window.after(20, self.update)
         self.draw()

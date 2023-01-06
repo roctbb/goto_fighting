@@ -121,10 +121,8 @@ class Player(Object):
             self.__direction = Direction.LEFT
 
     def update(self):
-        print(self.__cooldown_timer)
         if self.__cooldown_timer > 0:
             self.__cooldown_timer -= 1
-        print(self.__cooldown_timer)
 
         if self.__hit_timer == 0:
             self.__hit_state = HitState.NO
