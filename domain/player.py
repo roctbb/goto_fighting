@@ -55,6 +55,7 @@ class Player(Object):
             return True
         return False
 
+    @property
     def attack_power(self):
         if not self.is_attacking:
             return 0

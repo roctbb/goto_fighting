@@ -20,6 +20,7 @@ def key_press_handler(event):
     if event.char == 'e':
         player1.hit_hand()
 
+
     if event.char == 'i':
         player2.jump()
     if event.char == 'l':
