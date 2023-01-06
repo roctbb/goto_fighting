@@ -1,6 +1,7 @@
 from tkinter import *
 import json
 from domain.player import Player
+from domain.room import Room
 from domain.skin import Skin
 from domain.states import Direction
 from gui.interface import Interface
@@ -52,6 +53,7 @@ def key_release_handler(event):
 
 def draw_all():
     screen.clear()
+    room.draw()
     player1.draw()
     player2.draw()
     interface.draw()
@@ -91,6 +93,9 @@ screen = Screen(window)
 with open('assets/skins/roctbb/skin.json') as file:
     data = json.load(file)
 
+with open('assets/rooms/room1/room.json') as file:
+    room_description = json.load(file)
+
 skin1 = Skin(data)
 skin2 = Skin(data)
 
@@ -99,6 +104,7 @@ window.update()
 player1 = Player(Direction.RIGHT, screen, skin1)
 player2 = Player(Direction.LEFT, screen, skin2)
 interface = Interface(player1, player2, screen)
+room = Room(room_description, screen)
 
 window.bind("<KeyPress>", key_press_handler)
 window.bind("<KeyRelease>", key_release_handler)
