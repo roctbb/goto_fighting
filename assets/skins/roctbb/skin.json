@@ -42,6 +42,12 @@
         "len": 10,
         "image": "/skins/roctbb/stand/hit_leg/1.png"
       }
+    ],
+    "shot": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/stand/shot/1.png"
+      }
     ]
   },
   "sit": {
@@ -62,6 +68,12 @@
         "len": 10,
         "image": "/skins/roctbb/sit/hit_leg/1.png"
       }
+    ],
+    "shot": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/sit/shot/1.png"
+      }
     ]
   },
   "jump": {
@@ -81,6 +93,12 @@
       {
         "len": 10,
         "image": "/skins/roctbb/jump/hit_leg/1.png"
+      }
+    ],
+    "shot": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/jump/shot/1.png"
       }
     ]
   }
