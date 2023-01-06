@@ -74,7 +74,7 @@ class Player(Object):
             # Ball.WIDTH Ball.HEIGHT
             return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self._screen)
         else:
-            return Ball(self.x + self.width, (self.y + self.height - Ball.HEIGHT)/1.7, self.direction, self._screen)
+            return Ball(self.x + self.width, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self._screen)
 
     @property
     def is_attacking(self):
