@@ -13,7 +13,7 @@ class Skin:
             for move_state in [MoveState.STAND, MoveState.START, MoveState.JUMP, MoveState.SIT]:
                 if move_state.value in description:
                     move_description = description[move_state.value]
-                    for hit_state in [HitState.NO, HitState.LEG, HitState.HAND]:
+                    for hit_state in [HitState.NO, HitState.LEG, HitState.HAND, HitState.SHOT]:
                         if hit_state.value in move_description:
                             animation_description = move_description[hit_state.value]
                             if direction.value != description['orientation']:
@@ -22,11 +22,13 @@ class Skin:
                                 flip = False
                             if move_state == MoveState.SIT:
                                 self.__animations[
-                                    (direction, move_state, hit_state)] = Animation(animation_description, (self.width, self.height // 2),
+                                    (direction, move_state, hit_state)] = Animation(animation_description,
+                                                                                    (self.width, self.height // 2),
                                                                                     flip)
                             else:
                                 self.__animations[
-                                    (direction, move_state, hit_state)] = Animation(animation_description, (self.width, self.height),
+                                    (direction, move_state, hit_state)] = Animation(animation_description,
+                                                                                    (self.width, self.height),
                                                                                     flip)
 
     @property
@@ -38,6 +40,9 @@ class Skin:
         return self.__height
 
     def get_image(self, direction, movement, hit_state):
+        if (direction, movement, hit_state) not in self.__animations:
+            return
+
         if self.__old_state != (direction, movement, hit_state):
             self.__old_state = (direction, movement, hit_state)
             self.__animations[(direction, movement, hit_state)].reset()

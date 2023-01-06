@@ -8,6 +8,7 @@ class Screen:
         canvas.pack()
         self.__canvas = canvas
         self.__objects = []
+        self.__window = window
 
         canvas.configure(bg='white')
 
@@ -30,5 +31,9 @@ class Screen:
         for obj in self.__objects:
             self.__canvas.delete(obj)
         self.__objects = []
+
+    @property
+    def window(self):
+        return self.__window
 
 
