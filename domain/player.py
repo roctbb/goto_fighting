@@ -9,6 +9,9 @@ class Player(Object):
     LEG_POWER = 10
     HAND_POWER = 5
 
+    WIDTH = 100
+    HEIGHT = 100
+
     def __init__(self, x: int, y: int, direction, screen: Screen, skin: Skin):
         super().__init__(x, y, 100, 100, screen)
         self.__hp = 100
@@ -62,21 +65,20 @@ class Player(Object):
     def sit(self):
         if self.__move_state == MoveState.STAND:
             self.__move_state = MoveState.SIT
-            self._height = self._height // 2
-            self.move_by(0, self._height // 2)
+            self._height = self.HEIGHT // 2
+            self.move_by(0, self._height)
 
     def stand(self):
         if self.__move_state == MoveState.SIT:
-            self._height = self._height * 2
+            self._height = self.HEIGHT
             self.__move_state = MoveState.STAND
-            self.move_by(0, self._height // 2)
+            self.move_by(0, self._height)
 
     def jump(self):
         if self.__jump_speed == 0:
             self.__jump_speed = -25
             self.move_by(0, self.__jump_speed)
-        else:
-            pass
+            self.__move_state = MoveState.JUMP
 
     def right(self):
         self.__move_speed = 10
@@ -102,6 +104,8 @@ class Player(Object):
 
         if self.y + self.height == self._screen.height:
             self.__jump_speed = 0
+            if self.__move_state == MoveState.JUMP:
+                self.__move_state = MoveState.STAND
         else:
             self.move_by(0, self.__jump_speed)
             self.__jump_speed += self.GRAVITY
