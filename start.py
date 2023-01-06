@@ -2,6 +2,7 @@ from tkinter import *
 
 from domain.player import Player
 from domain.states import Direction
+from gui.interface import Interface
 from gui.screen import Screen
 
 
@@ -52,6 +53,7 @@ def draw_all():
     screen.clear()
     player1.draw()
     player2.draw()
+    interface.draw()
 
     # TODO: зеркалить игроков если нужно
 
@@ -95,8 +97,10 @@ def draw_all():
 window = Tk()
 screen = Screen(window)
 
+
 player1 = Player(200, 250, Direction.RIGHT, screen, None)
 player2 = Player(350, 250, Direction.LEFT, screen, None)
+interface = Interface(player1, player2, screen)
 
 window.bind("<KeyPress>", key_press_handler)
 window.bind("<KeyRelease>", key_release_handler)
