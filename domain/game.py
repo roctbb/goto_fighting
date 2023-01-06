@@ -1,5 +1,7 @@
 from tkinter import *
 import json
+
+from domain.flying_ball import Ball
 from domain.player import Player
 from domain.skin import Skin
 from domain.states import Direction
@@ -14,6 +16,10 @@ class Game:
         self.__player2 = None
         self.__interface = None
         self.__balls = []
+
+    @property
+    def balls(self):
+        return self.__balls
 
     def start(self):
         with open('assets/skins/roctbb/skin.json') as file:
@@ -104,6 +110,16 @@ class Game:
                 self.__player1.make_damage(self.__player2.attack_power)
                 self.__player2.cooldown()
 
+        for ball in self.__balls:
+            if self.__player2.intersects_with(ball):
+                print("ball intersects with player 2")
+                self.__player2.make_damage(ball.attack_power)
+                ball.die()
+            if self.__player1.intersects_with(ball):
+                print("ball intersects with player 1")
+                self.__player1.make_damage(ball.attack_power)
+                ball.die()
+
         if self.__player1.x < self.__player2.x and self.__player1.direction == Direction.LEFT:
             self.__player1.flip()
 
@@ -115,8 +131,6 @@ class Game:
 
         if self.__player2.x > self.__player1.x and self.__player2.direction == Direction.RIGHT:
             self.__player2.flip()
-
-
 
         self.__screen.window.after(20, self.update)
         self.draw()
