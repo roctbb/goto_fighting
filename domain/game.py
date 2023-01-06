@@ -3,6 +3,7 @@ import json
 from domain.player import Player
 from domain.skin import Skin
 from domain.states import Direction
+from gui.interface import Interface
 from gui.screen import Screen
 
 
@@ -11,6 +12,7 @@ class Game:
         self.__screen = screen
         self.__player1 = None
         self.__player2 = None
+        self.__interface = None
         self.__balls = []
 
     def start(self):
@@ -24,6 +26,8 @@ class Game:
 
         self.__player1 = Player(Direction.RIGHT, self.__screen, skin1)
         self.__player2 = Player(Direction.LEFT, self.__screen, skin2)
+
+        self.__interface = Interface(self.__player1, self.__player2, self.__screen)
 
         self.__balls = []
 
@@ -118,6 +122,7 @@ class Game:
         self.__screen.clear()
         self.__player1.draw()
         self.__player2.draw()
+        self.__interface.draw()
 
         for ball in self.__balls:
             ball.draw()
