@@ -14,11 +14,10 @@ class Player(Object):
     HIT_TIME = 5
 
     def __init__(self, direction, screen: Screen, skin: Skin):
-        if direction == Direction.LEFT:
+        if direction == Direction.RIGHT:
             x, y = skin.width // 2, screen.height - skin.height
         else:
             x, y = screen.width - int(skin.width * 1.5), screen.height - skin.height
-            print(x, y, screen.width, skin.width * 1.5)
 
         super().__init__(x, y, skin.width, skin.height, screen)
 
@@ -119,7 +118,6 @@ class Player(Object):
             self.move_by(0, self.__jump_speed)
             self.__jump_speed += self.GRAVITY
 
-        print(self.__move_speed)
         self.move_by(self.__move_speed, 0)
 
     # графика
