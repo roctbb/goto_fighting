@@ -9,11 +9,15 @@ class Player(Object):
     LEG_POWER = 10
     HAND_POWER = 5
 
-    WIDTH = 100
-    HEIGHT = 100
+    JUMP_SPEED = 37
+
+    WIDTH = 240
+    HEIGHT = 440
+
+    HIT_TIME = 5
 
     def __init__(self, x: int, y: int, direction, screen: Screen, skin: Skin):
-        super().__init__(x, y, 100, 100, screen)
+        super().__init__(x, y, self.WIDTH, self.HEIGHT, screen)
         self.__hp = 100
         self.__direction = direction
         self.__skin = skin
@@ -21,10 +25,8 @@ class Player(Object):
         self.__move_state = MoveState.STAND
         self.__hit_state = HitState.NO
         self.__hit_timer = 0
-        self.__jump_speed = 25
+        self.__jump_speed = 0
         self.__move_speed = 0
-        self._width = 100
-        self._height = 100
 
     @property
     def hp(self):
@@ -41,11 +43,11 @@ class Player(Object):
     # навыки
     def hit_hand(self):
         self.__hit_state = HitState.HAND
-        self.__hit_timer = 20
+        self.__hit_timer = self.HIT_TIME
 
     def hit_leg(self):
         self.__hit_state = HitState.LEG
-        self.__hit_timer = 20
+        self.__hit_timer = self.HIT_TIME
 
     @property
     def is_attacking(self):
@@ -76,7 +78,9 @@ class Player(Object):
 
     def jump(self):
         if self.__jump_speed == 0:
-            self.__jump_speed = -25
+            self.stand()
+
+            self.__jump_speed = -self.JUMP_SPEED
             self.move_by(0, self.__jump_speed)
             self.__move_state = MoveState.JUMP
 
@@ -90,6 +94,7 @@ class Player(Object):
         self.__move_speed = 0
 
     def flip(self):
+        print("flipe")
         if self.__direction == Direction.LEFT:
             self.__direction = Direction.RIGHT
         else:
