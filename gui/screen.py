@@ -11,6 +11,7 @@ class Screen:
 
         canvas.configure(bg='white')
 
+
     @property
     def width(self):
         return self.__canvas.winfo_width()
@@ -30,5 +31,3 @@ class Screen:
         for obj in self.__objects:
             self.__canvas.delete(obj)
         self.__objects = []
-
-
