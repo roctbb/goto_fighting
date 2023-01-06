@@ -49,6 +49,7 @@ class Player(Object):
             return True
         return False
 
+    @property
     def attack_power(self):
         if not self.is_attacking:
             return 0
@@ -124,3 +125,7 @@ class Player(Object):
             eye = self._screen.canvas.create_oval(self.x, self.y + 20, self.x + 20,
                                                   self.y + 40, fill="black")
         self._screen.add_object(eye)
+
+    @hp.setter
+    def hp(self, value):
+        self._hp = value
