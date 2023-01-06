@@ -59,8 +59,16 @@ def draw_all():
 
     if player1.intersects_with(player2):
         print("Пересечение")
+        if player1.is_attacking:
+            player2.make_damage(player1.attack_power)
 
-        # TODO Если player1 в состоянии атаки, нанести второму игроку урон в размере силы атаки первого игрока
+
+    if player2.intersects_with(player1):
+        print("Пересечение")
+        if player2.is_attacking:
+            player1.make_damage(player2.attack_power)
+
+
 
     window.after(20, draw_all)
 
