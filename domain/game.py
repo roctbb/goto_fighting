@@ -9,6 +9,7 @@ from gui.screen import Screen
 
 class Game:
     def __init__(self, screen):
+        self.hp = 100
         self.__screen = screen
         self.__player1 = None
         self.__player2 = None
@@ -125,7 +126,8 @@ class Game:
         if self.__player2.x > self.__player1.x and self.__player2.direction == Direction.RIGHT:
             self.__player2.flip()
 
-
+        if self.__player1.hp == 231:
+            pass
 
         self.__screen.window.after(20, self.update)
         self.draw()

@@ -50,9 +50,11 @@ class Player(Object):
 
     # навыки
     def block(self):
+        self.__hit_timer = 20
         self.__hit_state = HitState.BLOCK
 
     def unblock(self):
+        self.__hit_timer = 0
         self.__hit_state = HitState.NO
 
     def hit_hand(self):
