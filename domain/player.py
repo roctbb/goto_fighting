@@ -2,14 +2,26 @@ from domain.object import Object
 from domain.skin import Skin
 from domain.states import MoveState, HitState, Direction
 from gui.screen import Screen
+from tkinter import NW
 
 
 class Player(Object):
     LEG_POWER = 10
     HAND_POWER = 5
 
-    def __init__(self, x: int, y: int, direction, screen: Screen, skin: Skin):
-        super().__init__(x, y, 100, 100, screen)
+    JUMP_SPEED = 37
+
+    HIT_TIME = 5
+
+    def __init__(self, direction, screen: Screen, skin: Skin):
+        if direction == Direction.RIGHT:
+            x, y = skin.width // 2, screen.height - skin.height
+        else:
+            x, y = screen.width - int(skin.width * 1.5), screen.height - skin.height
+
+        super().__init__(x, y, skin.width, skin.height, screen)
+
+        self.__initial_height = skin.height
         self.__hp = 100
         self.__direction = direction
         self.__skin = skin
@@ -17,10 +29,8 @@ class Player(Object):
         self.__move_state = MoveState.STAND
         self.__hit_state = HitState.NO
         self.__hit_timer = 0
-        self.__jump_speed = 25
+        self.__jump_speed = 0
         self.__move_speed = 0
-        self._width = 100
-        self._height = 100
 
     @property
     def hp(self):
@@ -37,11 +47,11 @@ class Player(Object):
     # навыки
     def hit_hand(self):
         self.__hit_state = HitState.HAND
-        self.__hit_timer = 20
+        self.__hit_timer = self.HIT_TIME
 
     def hit_leg(self):
         self.__hit_state = HitState.LEG
-        self.__hit_timer = 20
+        self.__hit_timer = self.HIT_TIME
 
     @property
     def is_attacking(self):
@@ -62,21 +72,22 @@ class Player(Object):
     def sit(self):
         if self.__move_state == MoveState.STAND:
             self.__move_state = MoveState.SIT
-            self._height = self._height // 2
-            self.move_by(0, self._height // 2)
+            self._height = self.__initial_height // 2
+            self.move_by(0, self._height)
 
     def stand(self):
         if self.__move_state == MoveState.SIT:
-            self._height = self._height * 2
+            self._height = self.__initial_height
             self.__move_state = MoveState.STAND
-            self.move_by(0, self._height // 2)
+            self.move_by(0, self._height)
 
     def jump(self):
         if self.__jump_speed == 0:
-            self.__jump_speed = -25
+            self.stand()
+
+            self.__jump_speed = -self.JUMP_SPEED
             self.move_by(0, self.__jump_speed)
-        else:
-            pass
+            self.__move_state = MoveState.JUMP
 
     def right(self):
         self.__move_speed = 10
@@ -93,7 +104,6 @@ class Player(Object):
         else:
             self.__direction = Direction.LEFT
 
-
     def update(self):
         if self.__hit_timer == 0:
             self.__hit_state = HitState.NO
@@ -102,6 +112,8 @@ class Player(Object):
 
         if self.y + self.height == self._screen.height:
             self.__jump_speed = 0
+            if self.__move_state == MoveState.JUMP:
+                self.__move_state = MoveState.STAND
         else:
             self.move_by(0, self.__jump_speed)
             self.__jump_speed += self.GRAVITY
@@ -112,20 +124,7 @@ class Player(Object):
     def draw(self):
         self.update()
 
-        color = "green"
-        if self.is_attacking:
-            color = "red"
-        rect = self._screen.canvas.create_rectangle(self.x, self.y, self.x + self.width, self.y + self.height,
-                                                    fill=color)
+        rect = self._screen.canvas.create_image(self.x, self.y,
+                                                image=self.__skin.get_image(self.direction, self.__move_state,
+                                                                            self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
-
-        if self.__direction == Direction.RIGHT:
-            eye = self._screen.canvas.create_oval(self.x + self.width - 20, self.y + 20, self.x + self.width, self.y + 40, fill="black")
-        else:
-            eye = self._screen.canvas.create_oval(self.x, self.y + 20, self.x + 20,
-                                                  self.y + 40, fill="black")
-        self._screen.add_object(eye)
-
-    @hp.setter
-    def hp(self, value):
-        self._hp = value

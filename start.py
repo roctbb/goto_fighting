@@ -1,6 +1,7 @@
 from tkinter import *
-
+import json
 from domain.player import Player
+from domain.skin import Skin
 from domain.states import Direction
 from gui.interface import Interface
 from gui.screen import Screen
@@ -62,44 +63,41 @@ def draw_all():
         if player1.is_attacking:
             player2.make_damage(player1.attack_power)
 
-
     if player2.intersects_with(player1):
         print("Пересечение")
         if player2.is_attacking:
             player1.make_damage(player2.attack_power)
 
-
-
     window.after(20, draw_all)
 
     if player1.x < player2.x and player1.direction == Direction.LEFT:
         player1.flip()
-    else:
-        pass
 
     if player1.x > player2.x and player1.direction == Direction.RIGHT:
         player1.flip()
-    else:
-        pass
 
     if player2.x < player1.x and player2.direction == Direction.LEFT:
         player2.flip()
-    else:
-        pass
 
     if player2.x > player1.x and player2.direction == Direction.RIGHT:
         player2.flip()
-    else:
-        pass
-
 
 
 window = Tk()
+window.attributes('-fullscreen', True)
+
 screen = Screen(window)
 
+with open('assets/skins/roctbb/skin.json') as file:
+    data = json.load(file)
 
-player1 = Player(200, 250, Direction.RIGHT, screen, None)
-player2 = Player(350, 250, Direction.LEFT, screen, None)
+skin1 = Skin(data)
+skin2 = Skin(data)
+
+window.update()
+
+player1 = Player(Direction.RIGHT, screen, skin1)
+player2 = Player(Direction.LEFT, screen, skin2)
 interface = Interface(player1, player2, screen)
 
 window.bind("<KeyPress>", key_press_handler)

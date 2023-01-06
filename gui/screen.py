@@ -3,7 +3,8 @@ from tkinter import Tk, Canvas
 
 class Screen:
     def __init__(self, window):
-        canvas = Canvas(window, width=640, height=640)
+        w, h = window.winfo_screenwidth(), window.winfo_screenheight()
+        canvas = Canvas(window, width=w, height=h)
         canvas.pack()
         self.__canvas = canvas
         self.__objects = []
