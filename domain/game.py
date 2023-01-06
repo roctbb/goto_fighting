@@ -37,7 +37,7 @@ class Game:
         self.__key_manager.add_press_rule(('z',), self.__player1.hit_leg)
 
         self.__key_manager.add_press_rule(('f',), self.__player1.block)
-        self.__key_manager.add_press_rule(('e', 'e', 'z', 'd'), self.__player1.shot)
+        self.__key_manager.add_press_rule(('e', 'e', 'z', 'x'), self.__player1.shot)
 
         self.__key_manager.add_release_rule(('s',), self.__player1.stand)
         self.__key_manager.add_release_rule(('d',), self.__player1.stop)
