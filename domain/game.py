@@ -70,7 +70,7 @@ class Game:
             self.__player2.hit_hand()
         if event.char == 'h':
             self.__player2.block()
-        if event.char == 'u':
+        if event.char == 'p':
             ball = self.__player2.shot()
             self.__balls.append(ball)
 
@@ -126,8 +126,8 @@ class Game:
         if self.__player2.x > self.__player1.x and self.__player2.direction == Direction.RIGHT:
             self.__player2.flip()
 
-        if self.__player1.hp == 231:
-            pass
+        if self.__player1.hp == 0:
+                        print("Player1 Win")
 
         self.__screen.window.after(20, self.update)
         self.draw()
