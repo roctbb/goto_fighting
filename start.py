@@ -1,6 +1,5 @@
-import json
 from tkinter import *
-
+import json
 from domain.player import Player
 from domain.skin import Skin
 from domain.states import Direction
@@ -74,54 +73,27 @@ def draw_all():
 
     if player1.x < player2.x and player1.direction == Direction.LEFT:
         player1.flip()
-    else:
-        pass
 
     if player1.x > player2.x and player1.direction == Direction.RIGHT:
         player1.flip()
-    else:
-        pass
 
     if player2.x < player1.x and player2.direction == Direction.LEFT:
         player2.flip()
-    else:
-        pass
 
     if player2.x > player1.x and player2.direction == Direction.RIGHT:
         player2.flip()
-    else:
-        pass
-
-
-    if player1.x < player2.x and player1.direction == Direction.LEFT:
-        player1.flip()
-    else:
-        pass
-
-    if player1.x > player2.x and player1.direction == Direction.RIGHT:
-        player1.flip()
-    else:
-        pass
-
-    if player2.x < player1.x and player2.direction == Direction.LEFT:
-        player2.flip()
-    else:
-        pass
-
-    if player2.x > player1.x and player2.direction == Direction.RIGHT:
-        player2.flip()
-    else:
-        pass
 
 window = Tk()
+window.attributes('-fullscreen', True)
 screen = Screen(window)
 
 with open('assets/skins/roctbb/skin.json') as file:
     data = json.load(file)
-skin = Skin(data)
+skin1 = Skin(data)
+skin2 = Skin(data)
 
-player1 = Player(200, 250, Direction.RIGHT, screen, skin)
-player2 = Player(350, 250, Direction.LEFT, screen, skin)
+player1 = Player(200, 150, Direction.RIGHT, screen, skin1)
+player2 = Player(350, 150, Direction.LEFT, screen, skin2)
 
 window.bind("<KeyPress>", key_press_handler)
 window.bind("<KeyRelease>", key_release_handler)

@@ -40,7 +40,7 @@ class Object:
             if self.x + vx + self.width <= self._screen.width:
                 self._x += vx
             else:
-                self._x = self._screen.height - self.height
+                self._x = self._screen.width - self.width
         elif vx < 0:
             if self.x + vx >= 0:
                 self._x += vx
@@ -48,7 +48,7 @@ class Object:
                 self._x = 0
 
         if vy > 0:
-            if self.y + vy + self.width <= self._screen.width:
+            if self.y + vy + self.height <= self._screen.height:
                 self._y += vy
             else:
                 self._y = self._screen.height - self.height
@@ -57,7 +57,6 @@ class Object:
                 self._y += vy
             else:
                 self._y = 0
-
 
     def move_to(self, x, y):
         self._x = x
