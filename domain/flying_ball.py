@@ -4,9 +4,9 @@ from domain.states import Direction
 
 class Ball(Object):
 
-    SPEED = 15
-    WIDTH = 75
-    HEIGHT = 75
+    SPEED = 30
+    WIDTH = 50
+    HEIGHT = 50
 
     def __init__(self, x, y, direction, animation, screen):
         super().__init__(x, y, self.WIDTH, self.HEIGHT, screen)

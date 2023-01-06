@@ -33,11 +33,11 @@ class Game:
         self.__key_manager.add_press_rule(('a',), self.__player1.left)
         self.__key_manager.add_press_rule(('d',), self.__player1.right)
 
-        self.__key_manager.add_press_rule(('q',), self.__player1.hit_hand)
-        self.__key_manager.add_press_rule(('e',), self.__player1.hit_leg)
+        self.__key_manager.add_press_rule(('x',), self.__player1.hit_hand)
+        self.__key_manager.add_press_rule(('z',), self.__player1.hit_leg)
 
         self.__key_manager.add_press_rule(('f',), self.__player1.block)
-        self.__key_manager.add_press_rule(('a', 'a', 'd', 'e'), self.__player1.shot)
+        self.__key_manager.add_press_rule(('a', 'a', 'd', 'q'), self.__player1.shot)
 
         self.__key_manager.add_release_rule(('s',), self.__player1.stand)
         self.__key_manager.add_release_rule(('d',), self.__player1.stop)
