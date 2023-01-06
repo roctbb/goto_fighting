@@ -20,7 +20,6 @@ def key_press_handler(event):
     if event.char == 'e':
         player1.hit_hand()
 
-
     if event.char == 'i':
         player2.jump()
     if event.char == 'l':
@@ -62,13 +61,10 @@ def draw_all():
         if player1.is_attacking:
             player2.make_damage(player1.attack_power)
 
-
     if player2.intersects_with(player1):
         print("Пересечение")
         if player2.is_attacking:
             player1.make_damage(player2.attack_power)
-
-
 
     window.after(20, draw_all)
 
@@ -84,17 +80,22 @@ def draw_all():
     if player2.x > player1.x and player2.direction == Direction.RIGHT:
         player2.flip()
 
+
 window = Tk()
 window.attributes('-fullscreen', True)
+
 screen = Screen(window)
 
 with open('assets/skins/roctbb/skin.json') as file:
     data = json.load(file)
+
 skin1 = Skin(data)
 skin2 = Skin(data)
 
-player1 = Player(200, 150, Direction.RIGHT, screen, skin1)
-player2 = Player(350, 150, Direction.LEFT, screen, skin2)
+window.update()
+
+player1 = Player(Direction.RIGHT, screen, skin1)
+player2 = Player(Direction.LEFT, screen, skin2)
 
 window.bind("<KeyPress>", key_press_handler)
 window.bind("<KeyRelease>", key_release_handler)
