@@ -11,7 +11,7 @@ class Player(Object):
     HAND_POWER = 0.5
     SHOT_POWER = 1.5
 
-    JUMP_SPEED = 37
+    JUMP_SPEED = 50
 
     HIT_TIME = 5
     COOLDOWN = 5

@@ -4,7 +4,7 @@ from domain.states import Direction
 
 class Ball(Object):
 
-    SPEED = 15
+    SPEED = 30
     WIDTH = 50
     HEIGHT = 50
 
