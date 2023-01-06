@@ -51,7 +51,6 @@ class Game:
             self.__player1.hit_hand()
         if event.char == 'f':
             ball = self.__player1.shot()
-            print(ball.x, ball.y)
             self.__balls.append(ball)
 
         if event.char == 'i':
@@ -90,18 +89,17 @@ class Game:
             ball.update()
             if not ball.is_dead:
                 alive_balls.append(ball)
-
         self.__balls = alive_balls
 
         if self.__player1.intersects_with(self.__player2):
-            print("Пересечение")
             if self.__player1.is_attacking:
                 self.__player2.make_damage(self.__player1.attack_power)
+                self.__player1.cooldown()
 
         if self.__player2.intersects_with(self.__player1):
-            print("Пересечение")
             if self.__player2.is_attacking:
                 self.__player1.make_damage(self.__player2.attack_power)
+                self.__player2.cooldown()
 
         if self.__player1.x < self.__player2.x and self.__player1.direction == Direction.LEFT:
             self.__player1.flip()

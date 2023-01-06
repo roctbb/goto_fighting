@@ -16,7 +16,7 @@ class Object:
         x1, y1, x2, y2 = self.x, self.y, self.x + self.width, self.y + self.height
         i1, j1, i2, j2 = object.x, object.y, object.x + object.width, object.y + object.height
 
-        if (x1 < i1 < x2 or x1 < i2 < x2) and (y1 < j1 < y2 or y1 < j2 < y2):
+        if (x1 <= i1 <= x2 or x1 <= i2 <= x2) and (y1 <= j1 <= y2 or y1 <= j2 <= y2):
             return True
         return False
 

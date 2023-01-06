@@ -7,13 +7,14 @@ from tkinter import NW
 
 
 class Player(Object):
-    LEG_POWER = 10
-    HAND_POWER = 5
-    SHOT_POWER = 15
+    LEG_POWER = 1
+    HAND_POWER = 0.5
+    SHOT_POWER = 1.5
 
     JUMP_SPEED = 37
 
     HIT_TIME = 5
+    COOLDOWN = 5
 
     def __init__(self, direction, screen: Screen, skin: Skin):
         if direction == Direction.RIGHT:
@@ -31,6 +32,7 @@ class Player(Object):
         self.__move_state = MoveState.STAND
         self.__hit_state = HitState.NO
         self.__hit_timer = 0
+        self.__cooldown_timer = 0
         self.__jump_speed = 0
         self.__move_speed = 0
 
@@ -61,6 +63,7 @@ class Player(Object):
 
         return Ball(self.x, self.y, self.direction, self._screen)
 
+    @property
     def is_attacking(self):
         if self.__hit_state != HitState.NO:
             return True
@@ -68,15 +71,20 @@ class Player(Object):
 
     @property
     def attack_power(self):
-        if self.__hit_state == HitState.LEG:
-            return self.LEG_POWER
-        if self.__hit_state == HitState.HAND:
-            return self.HAND_POWER
-        if self.__hit_state == HitState.SHOT:
-            return self.SHOT_POWER
-
+        if self.__cooldown_timer == 0:
+            if self.__hit_state == HitState.LEG:
+                return self.LEG_POWER
+            if self.__hit_state == HitState.HAND:
+                return self.HAND_POWER
+            if self.__hit_state == HitState.SHOT:
+                return self.SHOT_POWER
         return 0
-    # перемещение
+
+    def cooldown(self):
+        if self.__cooldown_timer == 0:
+            self.__cooldown_timer = self.COOLDOWN
+            # перемещение
+
     def sit(self):
         if self.__move_state == MoveState.STAND:
             self.__move_state = MoveState.SIT
@@ -113,6 +121,11 @@ class Player(Object):
             self.__direction = Direction.LEFT
 
     def update(self):
+        print(self.__cooldown_timer)
+        if self.__cooldown_timer > 0:
+            self.__cooldown_timer -= 1
+        print(self.__cooldown_timer)
+
         if self.__hit_timer == 0:
             self.__hit_state = HitState.NO
         else:
@@ -130,7 +143,6 @@ class Player(Object):
 
     # графика
     def draw(self):
-
         rect = self._screen.canvas.create_image(self.x, self.y,
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
                                                                             self.__hit_state), anchor=NW)
