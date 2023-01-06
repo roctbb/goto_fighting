@@ -1,6 +1,5 @@
-import json
 from tkinter import *
-
+import json
 from domain.player import Player
 from domain.skin import Skin
 from domain.states import Direction
@@ -63,6 +62,26 @@ def draw_all():
         # TODO Если player1 в состоянии атаки, нанести второму игроку урон в размере силы атаки первого игрока
 
     window.after(20, draw_all)
+
+    if player1.x < player2.x and player1.direction == Direction.LEFT:
+        player1.flip()
+    else:
+        pass
+
+    if player1.x > player2.x and player1.direction == Direction.RIGHT:
+        player1.flip()
+    else:
+        pass
+
+    if player2.x < player1.x and player2.direction == Direction.LEFT:
+        player2.flip()
+    else:
+        pass
+
+    if player2.x > player1.x and player2.direction == Direction.RIGHT:
+        player2.flip()
+    else:
+        pass
 
 
 window = Tk()
