@@ -12,8 +12,13 @@ class Ball(Object):
         self.__direction = direction
 
     def draw(self):
-        ball = self._screen.canvas.create_oval(self.x, self.y, self.x + self.width, self.y + self.height, fill="red")
+        if self.__direction == Direction.LEFT:
+            ball = self._screen.canvas.create_oval(self.x - 20, self.y + 50, self.x - 20 + self.width, self.y + 50 + self.height, fill="red")
+        if self.__direction == Direction.RIGHT:
+            ball = self._screen.canvas.create_oval(self.x + 210, self.y + 50, self.x + 210 + self.width, self.y + 50 + self.height,
+                                                   fill="red")
         self._screen.add_object(ball)
+
 
     def update(self):
         if self.__direction == Direction.LEFT:
