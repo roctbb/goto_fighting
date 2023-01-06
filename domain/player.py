@@ -51,7 +51,10 @@ class Player(Object):
     def receive_attack(self, attack: Attack):
         if self.__move_state == MoveState.SIT and attack.move_state == MoveState.STAND:
             return
-
+        if self.__move_state == MoveState.JUMP and attack.hit_state == HitState.LEG:
+            return
+        if self.__move_state == MoveState.SIT and attack.hit_state == HitState.HAND:
+            return
         self.make_damage(attack.power)
 
     # навыки
