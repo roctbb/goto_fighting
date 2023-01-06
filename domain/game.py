@@ -3,6 +3,7 @@ import json
 
 from domain.flying_ball import Ball
 from domain.player import Player
+from domain.room import Room
 from domain.skin import Skin
 from domain.states import Direction
 from gui.interface import Interface
@@ -21,6 +22,7 @@ class Game:
         self.__pressed_keys = []
         self.__released_keys = []
         self.__key_manager = None
+        self.__room = None
 
     def __init_rules(self):
         self.__key_manager = KeyManager(self.__balls)
@@ -59,6 +61,7 @@ class Game:
         self.__key_manager.add_release_rule(('l',), self.__player2.stop)
         self.__key_manager.add_release_rule(('h',), self.__player2.unblock)
 
+
     @property
     def balls(self):
         return self.__balls
@@ -67,6 +70,9 @@ class Game:
         with open('assets/skins/roctbb/skin.json') as file:
             data = json.load(file)
 
+        with open('assets/rooms/room1/room.json') as file:
+            room_description = json.load(file)
+
         skin1 = Skin(data)
         skin2 = Skin(data)
 
@@ -74,6 +80,7 @@ class Game:
 
         self.__player1 = Player(Direction.RIGHT, self.__screen, skin1)
         self.__player2 = Player(Direction.LEFT, self.__screen, skin2)
+        self.__room = Room(room_description, self.__screen)
 
         self.__interface = Interface(self.__player1, self.__player2, self.__screen)
 
@@ -139,6 +146,7 @@ class Game:
 
     def draw(self):
         self.__screen.clear()
+        self.__room.draw()
         self.__player1.draw()
         self.__player2.draw()
         self.__interface.draw()

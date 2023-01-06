@@ -70,11 +70,9 @@ class Player(Object):
         self.__hit_timer = self.HIT_TIME
 
         if self.direction == Direction.LEFT:
-            # self.x self.y self.width self.height
-            # Ball.WIDTH Ball.HEIGHT
-            return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self._screen)
+            return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self.__skin.bullet_animation, self._screen)
         else:
-            return Ball(self.x + self.width, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self._screen)
+            return Ball(self.x + self.width, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self.__skin.bullet_animation, self._screen)
 
     @property
     def is_attacking(self):

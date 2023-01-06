@@ -10,11 +10,9 @@ class KeyManager:
 
     def press(self, key):
         self.__pressed.append(key)
-        print(key)
 
         for rule in self.__pressed_rules:
             if len(self.__pressed) >= len(rule):
-                print(rule, self.__pressed[-len(rule):])
                 if tuple(self.__pressed[-len(rule):]) == rule:
                     obj = self.__pressed_rules[rule]()
 
