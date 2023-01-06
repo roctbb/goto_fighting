@@ -8,6 +8,7 @@ from tkinter import NW
 class Player(Object):
     LEG_POWER = 10
     HAND_POWER = 5
+    SHOT_POWER = 15
 
     JUMP_SPEED = 37
 
@@ -49,7 +50,10 @@ class Player(Object):
         self.__hit_state = HitState.LEG
         self.__hit_timer = self.HIT_TIME
 
-    @property
+    def shot(self):
+        self.__hit_state = HitState.SHOT
+        self.__hit_timer = self.HIT_TIME
+
     def is_attacking(self):
         if self.__hit_state != HitState.NO:
             return True
@@ -63,7 +67,8 @@ class Player(Object):
             return self.LEG_POWER
         if self.__hit_state == HitState.HAND:
             return self.HAND_POWER
-
+        if self.__hit_state == HitState.SHOT:
+            return self.SHOT_POWER
     # перемещение
     def sit(self):
         if self.__move_state == MoveState.STAND:
@@ -101,7 +106,6 @@ class Player(Object):
         else:
             self.__direction = Direction.LEFT
 
-
     def update(self):
         if self.__hit_timer == 0:
             self.__hit_state = HitState.NO
@@ -125,5 +129,7 @@ class Player(Object):
         color = "green"
         if self.is_attacking:
             color = "red"
-        rect = self._screen.canvas.create_image(self.x, self.y, image=self.__skin.get_image(self.direction, self.__move_state, self.__hit_state), anchor=NW)
+        rect = self._screen.canvas.create_image(self.x, self.y,
+                                                image=self.__skin.get_image(self.direction, self.__move_state,
+                                                                            self.__hit_state), anchor=NW)
         self._screen.add_object(rect)

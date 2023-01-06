@@ -19,6 +19,8 @@ def key_press_handler(event):
         player1.hit_leg()
     if event.char == 'e':
         player1.hit_hand()
+    if event.char == 'f':
+        player1.shot()
 
 
     if event.char == 'i':
