@@ -1,3 +1,4 @@
+from domain.flying_ball import Ball
 from domain.object import Object
 from domain.skin import Skin
 from domain.states import MoveState, HitState, Direction
@@ -58,6 +59,8 @@ class Player(Object):
         self.__hit_state = HitState.SHOT
         self.__hit_timer = self.HIT_TIME
 
+        return Ball(self.x, self.y, self.direction, self._screen)
+
     def is_attacking(self):
         if self.__hit_state != HitState.NO:
             return True
@@ -65,14 +68,14 @@ class Player(Object):
 
     @property
     def attack_power(self):
-        if not self.is_attacking:
-            return 0
         if self.__hit_state == HitState.LEG:
             return self.LEG_POWER
         if self.__hit_state == HitState.HAND:
             return self.HAND_POWER
         if self.__hit_state == HitState.SHOT:
             return self.SHOT_POWER
+
+        return 0
     # перемещение
     def sit(self):
         if self.__move_state == MoveState.STAND:
@@ -127,7 +130,6 @@ class Player(Object):
 
     # графика
     def draw(self):
-        self.update()
 
         rect = self._screen.canvas.create_image(self.x, self.y,
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
