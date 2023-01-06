@@ -1,7 +1,6 @@
-from domain.object import Object
-from domain.skin import Skin
-from domain.states import MoveState, HitState, Direction
+
 from gui.screen import Screen
+import time
 
 
 
@@ -19,12 +18,21 @@ class Interface:
                                                     fill=color)
         self.__screen.add_object(rect)
 
-        # self.__screen.width
-        # self.__screen.height
-
         rect = self.__screen.canvas.create_rectangle(self.__screen.width - self.__player2.hp * one_hp, 0, self.__screen.width, 100,
                                                     fill=color)
         self.__screen.add_object(rect)
 
+        if self.__player1.hp == 0:
+            self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Player2 win", fill="red", font=('Helvetica','30','bold'))
+        if self.__player2.hp == 0:
+            self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Player1 win", fill="red", font=('Helvetica','30','bold'))
 
+
+    timer = 3
+    for k in range(timer):
+        time.sleep(1)
+        print(timer)
+        timer -= 1
+        if timer == 0:
+            break
 
