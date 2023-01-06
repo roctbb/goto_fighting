@@ -49,6 +49,14 @@ class Player(Object):
         self.__hp = max(0, self.__hp - amount)
 
     # навыки
+    def block(self):
+        self.__hit_timer = 20
+        self.__hit_state = HitState.BLOCK
+
+    def unblock(self):
+        self.__hit_timer = 0
+        self.__hit_state = HitState.NO
+
     def hit_hand(self):
         self.__hit_state = HitState.HAND
         self.__hit_timer = self.HIT_TIME

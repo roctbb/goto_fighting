@@ -21,6 +21,12 @@
         "image": "/skins/roctbb/stand/no/2.png"
       }
     ],
+    "block": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/stand/block/1.png"
+      }
+    ],
     "hand": [
       {
         "len": 5,
@@ -59,6 +65,12 @@
         "image": "/skins/roctbb/sit/no/1.png"
       }
     ],
+    "block": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/sit/block/1.png"
+      }
+    ],
     "hand": [
       {
         "len": 10,
@@ -83,6 +95,12 @@
       {
         "len": 10,
         "image": "/skins/roctbb/jump/no/1.png"
+      }
+    ],
+    "block": [
+      {
+        "len": 10,
+        "image": "/skins/roctbb/jump/block/1.png"
       }
     ],
     "hand": [

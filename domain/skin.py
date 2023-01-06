@@ -13,7 +13,7 @@ class Skin:
             for move_state in [MoveState.STAND, MoveState.START, MoveState.JUMP, MoveState.SIT]:
                 if move_state.value in description:
                     move_description = description[move_state.value]
-                    for hit_state in [HitState.NO, HitState.LEG, HitState.HAND, HitState.SHOT]:
+                    for hit_state in [HitState.NO, HitState.LEG, HitState.HAND, HitState.SHOT, HitState.BLOCK]:
                         if hit_state.value in move_description:
                             animation_description = move_description[hit_state.value]
                             if direction.value != description['orientation']:
