@@ -62,6 +62,10 @@ class Game:
             self.__player2.hit_leg()
         if event.char == 'o':
             self.__player2.hit_hand()
+        if event.char == 'h':
+            ball = self.__player2.shot()
+            print(ball.x, ball.y)
+            self.__balls.append(ball)
 
     def __key_release_handler(self, event):
         if event.char == 's':
