@@ -1,12 +1,12 @@
 from tkinter import NW
 
-from gui.animation import Animation
+from gui.gif_animation import GifAnimation
 from gui.screen import Screen
 
 
 class Room:
     def __init__(self, room_description, screen: Screen):
-        self.__background = Animation(room_description["images"], (screen.width, screen.height))
+        self.__background = GifAnimation(room_description["image"], (screen.width, screen.height))
         self.__screen = screen
 
     def draw(self):

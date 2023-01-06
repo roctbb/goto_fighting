@@ -1,5 +1,9 @@
+from domain.flying_ball import Ball
 from domain.states import *
 from gui.animation import Animation
+from copy import copy
+
+from gui.gif_animation import GifAnimation
 
 
 class Skin:
@@ -8,6 +12,7 @@ class Skin:
         self.__old_state = None
         self.__width = description["width"]
         self.__height = description["height"]
+        self.__bullet_animation = GifAnimation(description["bullet"], (Ball.WIDTH, Ball.HEIGHT))
 
         for direction in [Direction.LEFT, Direction.RIGHT]:
             for move_state in [MoveState.STAND, MoveState.START, MoveState.JUMP, MoveState.SIT]:
@@ -48,3 +53,7 @@ class Skin:
             self.__animations[(direction, movement, hit_state)].reset()
 
         return self.__animations[(direction, movement, hit_state)].get_image()
+
+    @property
+    def bullet_animation(self):
+        return copy(self.__bullet_animation)
