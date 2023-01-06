@@ -13,6 +13,7 @@ class HitState(Enum):
     HAND = "hand"
     LEG = "leg"
     SHOT = 'shot'
+    BLOCK = 'block'
 
 class Direction(Enum):
     LEFT = "left"

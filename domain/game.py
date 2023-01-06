@@ -50,6 +50,8 @@ class Game:
         if event.char == 'e':
             self.__player1.hit_hand()
         if event.char == 'f':
+            self.__player1.block()
+        if event.char == 'r':
             ball = self.__player1.shot()
             self.__balls.append(ball)
 
@@ -66,6 +68,8 @@ class Game:
         if event.char == 'o':
             self.__player2.hit_hand()
         if event.char == 'h':
+            self.__player2.block()
+        if event.char == 'u':
             ball = self.__player2.shot()
             self.__balls.append(ball)
 
@@ -82,6 +86,11 @@ class Game:
             self.__player2.stop()
         if event.char == 'j':
             self.__player2.stop()
+
+        if event.char == 'h':
+            self.__player2.unblock()
+        if event.char == 'f':
+            self.__player1.unblock()
 
     def update(self):
         self.__player1.update()
