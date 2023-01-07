@@ -39,14 +39,17 @@ class Interface:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="3",
                                                  fill="white", font=('Helvetica', '80', 'bold')))
+
         if self.__screen.frames < 40 and self.__screen.frames >= 20:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="2",
                                                  fill="white", font=('Helvetica', '80', 'bold')))
+
         if self.__screen.frames < 60 and self.__screen.frames >= 40:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="1",
                                                  fill="white", font=('Helvetica', '80', 'bold')))
+
         if self.__screen.frames < 90 and self.__screen.frames >= 60:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Fight!",
