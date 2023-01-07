@@ -124,9 +124,9 @@
     ]
   },
   "sounds" : {
-    "start" : "/skins/tvorog/sounds/ts.ogg",
-    "win" : "/skins/tvorog/sounds/tw.ogg",
-    "loss" : "/skins/tvorog/sounds/tl.ogg"
+    "start" : "/skins/tvorog/sounds/rs.ogg",
+    "win" : "/skins/tvorog/sounds/rw.ogg",
+    "loss" : "/skins/tvorog/sounds/rl.ogg"
   },
   "actions" : {
     "loss": [
