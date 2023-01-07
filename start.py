@@ -13,6 +13,7 @@ def restart():
 
 
 screen = Screen(window)
+
 game = Game(screen)
 game.on_end = restart
 game.start()

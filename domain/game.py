@@ -199,12 +199,11 @@ class Game:
             if self.__player2.x > self.__player1.x and self.__player2.direction == Direction.RIGHT:
                 self.__player2.flip()
 
-            if self.__player1.hp == 0 or self.__player2.hp == 0:
+            if self.__player1.hp == 0 or self.__player2.hp == 0 or self.__interface.time_left <= 0:
                 if not self.__ended:
                     print("should close")
                     self.__ended = True
                     self.__screen.window.after(3000, self.close)
-
 
             self.__screen.window.after(20, self.update)
             self.draw()

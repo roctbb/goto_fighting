@@ -23,7 +23,6 @@ class Interface:
                                                  fill="white", font=('Helvetica', '100', 'bold')))
         self.__last_frame_time = time.time()
 
-
         color = "red"
 
         one_hp = (self.__screen.width / 2 - 80) / Player.HP
@@ -80,9 +79,6 @@ class Interface:
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Ничья",
                                                  fill="white", font=('Helvetica', '80', 'bold')))
 
-        if p == -1:
-            quit()
-
         self.__screen.add_object(self.__screen.canvas.create_rectangle(
             0, 3, self.__screen.width // 2 - 80, 50,
             outline="black"))
@@ -111,3 +107,7 @@ class Interface:
         self.__screen.add_object(self.__screen.canvas.create_rectangle(
             self.__screen.width - (self.__screen.width // 3), 60, self.__screen.width, 100,
             outline="black"))
+
+    @property
+    def time_left(self):
+        return int(self.__time_left)
