@@ -122,6 +122,18 @@ class Game:
             self.__player1.fight()
             self.__player2.fight()
 
+        if self.__player1.hp == 0:
+            self.__player1.lose()
+
+            if self.__player2.hp != 0:
+                self.__player2.win()
+
+        if self.__player2.hp == 0:
+            self.__player2.lose()
+
+            if self.__player1 != 0:
+                self.__player1.win()
+
         self.__player1.update()
         self.__player2.update()
 

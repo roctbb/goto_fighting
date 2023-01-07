@@ -1,3 +1,5 @@
+from domain.player import Player
+from domain.states import MoveState
 from gui.screen import Screen
 import time
 
@@ -12,13 +14,13 @@ class Interface:
     def draw(self):
         color = "red"
 
-        one_hp = (self.__screen.width // 2 - 50) // 100
-        rect = self.__screen.canvas.create_rectangle(0, 0, self.__player1.hp * one_hp, 100,
+        one_hp = (self.__screen.width // 2 - 50) // Player.HP
+        rect = self.__screen.canvas.create_rectangle(0, 0, self.__player1.hp * one_hp, 50,
                                                      fill=color)
         self.__screen.add_object(rect)
 
         rect = self.__screen.canvas.create_rectangle(self.__screen.width - self.__player2.hp * one_hp, 0,
-                                                     self.__screen.width, 100,
+                                                     self.__screen.width, 50,
                                                      fill=color)
         self.__screen.add_object(rect)
 
@@ -56,7 +58,7 @@ class Interface:
                                              fill="white", font=('Helvetica', '80', 'bold')))
         if p == 0:
             self.__screen.add_object(
-              self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Draw",
+              self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Ничья",
                                                  fill="white", font=('Helvetica', '80', 'bold')))
 
         if p == -1:
