@@ -2,6 +2,7 @@
   "orientation": "left",
   "width": 100,
   "height": 280,
+  "name": "Tvorog",
   "bullet": "/skins/tvorog/bullet/1.gif",
   "start": {
     "no": [

@@ -33,11 +33,15 @@ class Interface:
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
                                                  text="Player2 win",
                                                  fill="white", font=('Helvetica', '30', 'bold')))
+                                                 text=f"{self.__player2.name} win",
+                                                 fill="red", font=('Helvetica', '100', 'bold')))
         if self.__player2.hp == 0:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
                                                  text="Player1 win",
                                                  fill="white", font=('Helvetica', '30', 'bold')))
+                                                 text=f"{self.__player1.name} win",
+                                                 fill="red", font=('Helvetica', '100', 'bold')))
 
         if self.__screen.frames < 20:
             self.__screen.add_object(
