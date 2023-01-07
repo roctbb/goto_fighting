@@ -21,8 +21,8 @@ class Game:
         self.__balls = []
         self.__pressed_keys = []
         self.__released_keys = []
-        self.__key_manager1 = KeyManager(self.__balls)
-        self.__key_manager2 = KeyManager(self.__balls)
+        self.__key_manager1 = KeyManager(self.__balls, self.__screen.window)
+        self.__key_manager2 = KeyManager(self.__balls, self.__screen.window)
         self.__room = None
 
     def __init_rules(self):
@@ -91,9 +91,6 @@ class Game:
         mainloop()
 
     def update(self):
-        self.__key_manager1.update()
-        self.__key_manager2.update()
-
         self.__player1.update()
         self.__player2.update()
 

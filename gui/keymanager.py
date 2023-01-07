@@ -4,7 +4,7 @@ import keyboard
 
 
 class KeyManager:
-    def __init__(self, object_storage):
+    def __init__(self, object_storage, window):
         self.__pressed_history = []
         self.__released_history = []
 
@@ -16,16 +16,11 @@ class KeyManager:
 
         self.__storage = object_storage
 
-    def update(self):
-        for key in copy(self.__current_pressed):
-            if not keyboard.is_pressed(key):
-                self.release(key)
-
-        for key in self.__monitored_keys:
-            if key not in self.__current_pressed and keyboard.is_pressed(key):
-                self.press(key)
+        window.bind("<KeyPress>", lambda event: self.press(event.char))
+        window.bind("<KeyRelease>", lambda event: self.release(event.char))
 
     def press(self, key):
+        print(key, "is pressed")
         self.__current_pressed.add(key)
         self.__pressed_history.append(key)
 
@@ -38,7 +33,8 @@ class KeyManager:
                         self.__storage.append(obj)
 
     def release(self, key):
-        self.__current_pressed.remove(key)
+        print(key, "is released")
+        self.__current_pressed.discard(key)
         self.__released_history.append(key)
 
         for rule in self.__released_rules:
