@@ -30,15 +30,15 @@
     ],
     "hand": [
       {
-        "len": 5,
+        "len": 3,
         "image": "/skins/tvorog/stand/hit_hand/1.png"
       },
       {
-        "len": 5,
+        "len": 3,
         "image": "/skins/tvorog/stand/no/1.png"
       },
       {
-        "len": 5,
+        "len": 3,
         "image": "/skins/tvorog/stand/no/2.png"
       }
     ],

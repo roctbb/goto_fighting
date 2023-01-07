@@ -13,7 +13,7 @@ class Player(Object):
 
     JUMP_SPEED = 50
 
-    HIT_TIME = 5
+    HIT_TIME = 10
     COOLDOWN = 5
 
     HP = 1000

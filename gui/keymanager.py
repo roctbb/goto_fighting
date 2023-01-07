@@ -17,7 +17,7 @@ class KeyManager:
         self.__storage = object_storage
 
     def press(self, key):
-        if key in self.__monitored_keys:
+        if key in self.__monitored_keys and key not in self.__current_pressed:
             print(key, "is pressed")
             self.__current_pressed.add(key)
             self.__pressed_history.append(key)
