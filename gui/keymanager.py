@@ -5,6 +5,7 @@ import keyboard
 
 class KeyManager:
     def __init__(self, object_storage):
+        self.__enabled = True
         self.__pressed_history = []
         self.__released_history = []
 
@@ -17,8 +18,7 @@ class KeyManager:
         self.__storage = object_storage
 
     def press(self, key):
-        if key in self.__monitored_keys and key not in self.__current_pressed:
-            print(key, "is pressed")
+        if self.__enabled and key in self.__monitored_keys and key not in self.__current_pressed:
             self.__current_pressed.add(key)
             self.__pressed_history.append(key)
 
@@ -31,8 +31,7 @@ class KeyManager:
                             self.__storage.append(obj)
 
     def release(self, key):
-        if key in self.__monitored_keys and key in self.__current_pressed:
-            print(key, "is released")
+        if self.__enabled and key in self.__monitored_keys and key in self.__current_pressed:
             self.__current_pressed.discard(key)
             self.__released_history.append(key)
 
@@ -55,3 +54,12 @@ class KeyManager:
             self.__monitored_keys.add(key)
 
         self.__released_rules[keys] = action
+
+    @property
+    def enabled(self):
+        return self.__enabled
+    def enable(self):
+        self.__enabled = True
+
+    def disable(self):
+        self.__enabled = False
