@@ -70,7 +70,6 @@ class Player(Object):
         (MoveState.SIT, HitState.LEG, MoveState.JUMP, True): 0,
         (MoveState.SIT, HitState.LEG, MoveState.JUMP, False): 0,
 
-
     }
 
     def __init__(self, direction, screen: Screen, skin: Skin):
@@ -92,6 +91,7 @@ class Player(Object):
         self.__jump_speed = 0
         self.__move_speed = 0
         self.__shot_timer = 0
+        self.__fly_timer = 0
 
     @property
     def hp(self):
@@ -106,11 +106,11 @@ class Player(Object):
 
     def receive_attack(self, attack: Attack):
 
-        coef = self.DAMAGE_RULES.get((attack.move_state, attack.hit_state, self.__move_state, self.__hit_state == HitState.BLOCK))
+        coef = self.DAMAGE_RULES.get(
+            (attack.move_state, attack.hit_state, self.__move_state, self.__hit_state == HitState.BLOCK))
 
         if coef:
             self.make_damage(int(attack.power * coef))
-
 
     # навыки
     def block(self):
@@ -151,6 +151,7 @@ class Player(Object):
         self.__hit_state = HitState.SHOT
         self.__hit_timer = self.HIT_TIME
         self.__shot_timer = 1000
+        self.__fly_timer = 500
 
         if self.direction == Direction.LEFT:
             return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT) / 8, self.direction,
@@ -178,8 +179,6 @@ class Player(Object):
                 return self.LEG_POWER
             if self.__hit_state == HitState.HAND:
                 return self.HAND_POWER
-            if self.__hit_state == HitState.SHOT:
-                return self.SHOT_POWER
         return 0
 
     def cooldown(self):
@@ -224,6 +223,7 @@ class Player(Object):
             if self.direction == Direction.RIGHT:
                 self.__move_speed = 50
 
+
     def right(self):
         if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
@@ -246,17 +246,16 @@ class Player(Object):
         self.__move_state = MoveState.STAND
         self.__skin.play_sound('start')
 
-
     def win(self):
         self.__move_state = MoveState.WIN
 
     def lose(self):
         self.__move_state = MoveState.LOSE
 
-
     def update(self):
         if self.__cooldown_timer > 0:
             self.__cooldown_timer -= 1
+
 
         if self.__shot_timer != 0:
             self.__shot_timer -= 1
@@ -281,6 +280,3 @@ class Player(Object):
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
                                                                             self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
-
-
-

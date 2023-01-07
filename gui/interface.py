@@ -24,10 +24,6 @@ class Interface:
                                                      fill=color)
         self.__screen.add_object(rect)
 
-        # Back = self.__screen.canvas.create_rectangle(int(self.__screen.), 0,
-        #                                              self.__screen.width, 50,
-        #                                              fill=color)
-
         if self.__player1.hp == 0:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
