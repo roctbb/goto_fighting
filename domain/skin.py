@@ -23,7 +23,7 @@ class Skin:
         }
 
         for direction in [Direction.LEFT, Direction.RIGHT]:
-            for move_state in [MoveState.STAND, MoveState.START, MoveState.JUMP, MoveState.SIT]:
+            for move_state in [MoveState.STAND, MoveState.START, MoveState.JUMP, MoveState.SIT, MoveState.WIN, MoveState.LOSS]:
                 if move_state.value in description:
                     move_description = description[move_state.value]
                     for hit_state in [HitState.NO, HitState.LEG, HitState.HAND, HitState.SHOT, HitState.BLOCK]:
@@ -33,7 +33,7 @@ class Skin:
                                 flip = True
                             else:
                                 flip = False
-                            if move_state == MoveState.SIT:
+                            if move_state == MoveState.SIT or move_state == MoveState.LOSS:
                                 self.__animations[
                                     (direction, move_state, hit_state)] = Animation(animation_description,
                                                                                     (self.width, self.height // 2),
