@@ -98,6 +98,10 @@ class Player(Object):
         return self.__hp
 
     @property
+    def name(self):
+        return self.__skin.name
+
+    @property
     def direction(self):
         return self._direction
 

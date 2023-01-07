@@ -17,6 +17,7 @@ class Skin:
         self.__height = description["height"]
         self.__bullet_animation = GifAnimation(description["bullet"], (Ball.WIDTH, Ball.HEIGHT))
         self.__description = description
+        self.__name = description['name']
 
         self.__sounds = {
             key: pygame.mixer.Sound(asset_path(value)) for key, value in self.__description["sounds"].items()
@@ -47,6 +48,10 @@ class Skin:
     @property
     def width(self):
         return self.__width
+
+    @property
+    def name(self):
+        return self.__name
 
     @property
     def height(self):
