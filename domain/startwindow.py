@@ -27,15 +27,21 @@ class StartWindow:
     def draw(self):
         self.__screen.clear()
         print(self.__screen.width // 4, self.__screen.height // 4,
-                                              2 * self.__screen.width // 4, 2 * self.__screen.height // 4)
-        self.__screen.add_object(self.__screen.canvas.create_rectangle(self.__screen.width // 4, self.__screen.height // 4,
-                                              2 * self.__screen.width // 4, 2 * self.__screen.height // 4, fill="blue"))
+                                              2 * self.__screen.width // 3, 2 * self.__screen.height // 3)
+        self.__screen.add_object(self.__screen.canvas.create_rectangle(self.__screen.width // 3, self.__screen.height // 4,
+                                              2 * self.__screen.width // 3, 2 * self.__screen.height // 4, fill="gray"))
 
         self.__screen.add_object(
-            self.__screen.canvas.create_rectangle(self.__screen.width // 4, 2 * self.__screen.height // 4,
-                                                  2 * self.__screen.width // 4, 3 * self.__screen.height // 4,
-                                                  fill="blue"))
+            self.__screen.canvas.create_rectangle(self.__screen.width // 3, 2 * self.__screen.height // 4,
+                                                  2 * self.__screen.width // 3, 3 * self.__screen.height // 4,
+                                                  fill="gray"))
 
+        self.__screen.add_object(
+            self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.35, text="play",
+                                             fill="white", font=('Helvetica', '80', 'bold')))
+        self.__screen.add_object(
+            self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.6, text="exit",
+                                             fill="white", font=('Helvetica', '80', 'bold')))
 
     def start(self):
         if self.on_start:
