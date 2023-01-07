@@ -38,6 +38,7 @@ class StartWindow:
 
 
     def start(self):
+        self.__screen.clear()
         if self.on_start:
             self.on_start()
 

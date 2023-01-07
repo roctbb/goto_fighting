@@ -12,13 +12,17 @@ window.attributes('-fullscreen', True)
 
 def restart():
     screen.reset()
+    game.on_end = show_menu
     game.start()
+
+
+def show_menu():
+    menu.draw()
 
 
 screen = Screen(window)
 menu = StartWindow(screen)
 game = Game(screen)
-game.on_end = restart
 
 menu.draw()
 

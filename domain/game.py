@@ -16,6 +16,7 @@ class Game:
 
     def __init__(self, screen):
         self.__screen = screen
+        self.on_end = None
         pygame.mixer.init()
         self.__clear()
 
@@ -33,7 +34,6 @@ class Game:
         self.__key_manager1 = None
         self.__key_manager2 = None
         self.__room = None
-        self.on_end = None
         self.__closed = False
         self.__ended = False
 
@@ -206,6 +206,7 @@ class Game:
         print("closing")
         self.__closed = True
         if self.on_end:
+            pygame.mixer.music.stop()
             self.__screen.window.after(200, self.on_end)
 
     def draw(self):
