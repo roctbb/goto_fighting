@@ -17,6 +17,8 @@ class Player(Object):
     HIT_TIME = 5
     COOLDOWN = 5
 
+    HP = 100
+
     def __init__(self, direction, screen: Screen, skin: Skin):
         if direction == Direction.RIGHT:
             x, y = skin.width // 2, screen.height - skin.height
@@ -26,7 +28,7 @@ class Player(Object):
         super().__init__(x, y, skin.width, skin.height, direction, screen)
 
         self.__initial_height = skin.height
-        self.__hp = 100
+        self.__hp = self.HP
         self.__skin = skin
         self.__speed = 10
         self.__move_state = MoveState.START
@@ -65,35 +67,35 @@ class Player(Object):
 
     # навыки
     def block(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__hit_timer = 20
         self.__hit_state = HitState.BLOCK
 
     def unblock(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__hit_timer = 0
         self.__hit_state = HitState.NO
 
     def hit_hand(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__hit_state = HitState.HAND
         self.__hit_timer = self.HIT_TIME
 
     def hit_leg(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__hit_state = HitState.LEG
         self.__hit_timer = self.HIT_TIME
 
     def shot(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__hit_state = HitState.SHOT
@@ -134,7 +136,7 @@ class Player(Object):
             self.__cooldown_timer = self.COOLDOWN
 
     def sit(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         if self.__move_state == MoveState.STAND:
@@ -145,7 +147,7 @@ class Player(Object):
 
     def stand(self):
         print("standing")
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         if self.__move_state == MoveState.SIT:
@@ -154,7 +156,7 @@ class Player(Object):
             self.move_by(0, self._height)
 
     def jump(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         if self.__jump_speed == 0:
@@ -172,25 +174,32 @@ class Player(Object):
                 self.__move_speed = 50
 
     def right(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__move_speed = 10
 
     def left(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__move_speed = -10
 
     def stop(self):
-        if self.__move_state == MoveState.START:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
         self.__move_speed = 0
 
     def fight(self):
         self.__move_state = MoveState.STAND
+
+    def win(self):
+        self.__move_state = MoveState.WIN
+
+    def lose(self):
+        self.__move_state = MoveState.LOSE
+
 
     def update(self):
         if self.__cooldown_timer > 0:
@@ -216,4 +225,3 @@ class Player(Object):
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
                                                                             self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
-
