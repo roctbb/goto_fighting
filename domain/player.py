@@ -191,6 +191,8 @@ class Player(Object):
 
     def fight(self):
         self.__move_state = MoveState.STAND
+        self.__skin.play_sound('start')
+
 
     def update(self):
         if self.__cooldown_timer > 0:

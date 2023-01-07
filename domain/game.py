@@ -29,6 +29,7 @@ class Game:
         self.__key_manager1 = KeyManager(self.__balls)
         self.__key_manager2 = KeyManager(self.__balls)
         self.__room = None
+        pygame.mixer.init()
 
     def __init_rules(self):
 
@@ -179,6 +180,5 @@ class Game:
         for ball in self.__balls:
             ball.draw()
     def music(self):
-        pygame.mixer.init()
         pygame.mixer.music.load(asset_path('/music/1.ogg'))
         pygame.mixer.music.play(-1)

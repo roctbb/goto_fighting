@@ -1,8 +1,11 @@
+import pygame
+
 from domain.flying_ball import Ball
 from domain.states import *
 from gui.animation import Animation
 from copy import copy
 
+from gui.common import asset_path
 from gui.gif_animation import GifAnimation
 
 
@@ -13,6 +16,11 @@ class Skin:
         self.__width = description["width"]
         self.__height = description["height"]
         self.__bullet_animation = GifAnimation(description["bullet"], (Ball.WIDTH, Ball.HEIGHT))
+        self.__description = description
+
+        self.__sounds = {
+            key: pygame.mixer.Sound(asset_path(value)) for key, value in self.__description["sounds"].items()
+        }
 
         for direction in [Direction.LEFT, Direction.RIGHT]:
             for move_state in [MoveState.STAND, MoveState.START, MoveState.JUMP, MoveState.SIT]:
@@ -57,3 +65,9 @@ class Skin:
     @property
     def bullet_animation(self):
         return copy(self.__bullet_animation)
+
+    def play_sound(self, sound):
+        # pygame.mixer.music.load(asset_path(self.__description["sounds"]["start"]))
+        # pygame.mixer.music.play(1)
+        if sound in self.__sounds:
+            self.__sounds[sound].play()
