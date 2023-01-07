@@ -15,17 +15,15 @@ class StartWindow:
 
     def __click(self, event):
         print(event)
-        if event.x > self.__screen.width // 4 and event.x < 2 * self.__screen.width // 4 and self.__screen.height // 4 < event.y < 2 * self.__screen.height // 4:
+        if self.__screen.width // 3 < event.x < 2 * self.__screen.width // 3 and self.__screen.height // 4 < event.y < 2 * self.__screen.height // 4:
             self.start()
-        elif event.x > self.__screen.width // 4 and event.x < 2 * self.__screen.width // 4 and 2 * self.__screen.height // 4 < event.y < 3 * self.__screen.height // 4:
+        elif self.__screen.width // 3 < event.x < 2 * self.__screen.width // 3 and 2 * self.__screen.height // 4 < event.y < 3 * self.__screen.height // 4:
             self.exit()
 
 
     def draw(self):
         self.__screen.canvas.bind("<Button-1>", self.__click)
         self.__screen.clear()
-        print(self.__screen.width // 4, self.__screen.height // 4,
-                                              2 * self.__screen.width // 3, 2 * self.__screen.height // 3)
         self.__screen.add_object(self.__screen.canvas.create_rectangle(self.__screen.width // 3, self.__screen.height // 4,
                                               2 * self.__screen.width // 3, 2 * self.__screen.height // 4, fill="gray"))
 
@@ -48,7 +46,8 @@ class StartWindow:
             self.__screen.canvas.create_rectangle(0,0,self.__screen.width, self.__screen.height, fill="white"))
 
         if self.on_start:
-            self.on_start()
+            self.__screen.window.after(50, self.on_start)
+            #self.on_start()
 
     def exit(self):
         self.__screen.window.destroy()
