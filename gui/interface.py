@@ -32,12 +32,12 @@ class Interface:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
                                                  text="Player2 win",
-                                                 fill="red", font=('Helvetica', '30', 'bold')))
+                                                 fill="white", font=('Helvetica', '30', 'bold')))
         if self.__player2.hp == 0:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
                                                  text="Player1 win",
-                                                 fill="red", font=('Helvetica', '30', 'bold')))
+                                                 fill="white", font=('Helvetica', '30', 'bold')))
 
         if self.__screen.frames < 20:
             self.__screen.add_object(
@@ -87,3 +87,7 @@ class Interface:
         self.__screen.add_object(
             self.__screen.canvas.create_rectangle(self.__screen.width - int(self.__player2.shot_ready_percent * fire), 60, self.__screen.width, 100,
                                                   fill="blue"))
+
+        self.__screen.add_object(self.__screen.canvas.create_rectangle(
+            0, 60, self.__screen.width // 3, 100,
+            outline="black"))
