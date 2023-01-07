@@ -21,8 +21,8 @@ class Game:
         self.__balls = []
         self.__pressed_keys = []
         self.__released_keys = []
-        self.__key_manager1 = KeyManager(self.__balls, self.__screen.window)
-        self.__key_manager2 = KeyManager(self.__balls, self.__screen.window)
+        self.__key_manager1 = KeyManager(self.__balls)
+        self.__key_manager2 = KeyManager(self.__balls)
         self.__room = None
 
     def __init_rules(self):
@@ -61,6 +61,20 @@ class Game:
         self.__key_manager2.add_release_rule(('l',), self.__player2.stop)
         self.__key_manager2.add_release_rule(('h',), self.__player2.unblock)
 
+        self.__screen.window.bind("<KeyPress>",
+                                  lambda event: self.__pressed(event.char))
+        self.__screen.window.bind("<KeyRelease>",
+                                  lambda event: self.__released(event.char))
+
+    def __pressed(self, key):
+        self.__key_manager1.press(key)
+        self.__key_manager2.press(key)
+
+    def __released(self, key):
+        self.__key_manager1.release(key)
+        self.__key_manager2.release(key)
+
+
     @property
     def balls(self):
         return self.__balls
@@ -91,6 +105,10 @@ class Game:
         mainloop()
 
     def update(self):
+        if self.__screen.frames > 90:
+            self.__player1.fight()
+            self.__player2.fight()
+
         self.__player1.update()
         self.__player2.update()
 

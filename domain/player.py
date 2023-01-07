@@ -29,7 +29,7 @@ class Player(Object):
         self.__hp = 100
         self.__skin = skin
         self.__speed = 10
-        self.__move_state = MoveState.STAND
+        self.__move_state = MoveState.START
         self.__hit_state = HitState.NO
         self.__hit_timer = 0
         self.__cooldown_timer = 0
@@ -65,20 +65,37 @@ class Player(Object):
 
     # навыки
     def block(self):
+        if self.__move_state == MoveState.START:
+            return
+
+        self.__hit_timer = 20
         self.__hit_state = HitState.BLOCK
 
     def unblock(self):
+        if self.__move_state == MoveState.START:
+            return
+
+        self.__hit_timer = 0
         self.__hit_state = HitState.NO
 
     def hit_hand(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__hit_state = HitState.HAND
         self.__hit_timer = self.HIT_TIME
 
     def hit_leg(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__hit_state = HitState.LEG
         self.__hit_timer = self.HIT_TIME
 
     def shot(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__hit_state = HitState.SHOT
         self.__hit_timer = self.HIT_TIME
 
@@ -117,18 +134,27 @@ class Player(Object):
             self.__cooldown_timer = self.COOLDOWN
 
     def sit(self):
+        if self.__move_state == MoveState.START:
+            return
+
         if self.__move_state == MoveState.STAND:
             self.__move_state = MoveState.SIT
             self._height = self.__initial_height // 2
             self.move_by(0, self._height)
 
     def stand(self):
+        if self.__move_state == MoveState.START:
+            return
+
         if self.__move_state == MoveState.SIT:
             self._height = self.__initial_height
             self.__move_state = MoveState.STAND
             self.move_by(0, self._height)
 
     def jump(self):
+        if self.__move_state == MoveState.START:
+            return
+
         if self.__jump_speed == 0:
             self.stand()
 
@@ -137,13 +163,25 @@ class Player(Object):
             self.__move_state = MoveState.JUMP
 
     def right(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__move_speed = 10
 
     def left(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__move_speed = -10
 
     def stop(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__move_speed = 0
+
+    def fight(self):
+        self.__move_state = MoveState.STAND
 
     def update(self):
         if self.__cooldown_timer > 0:
