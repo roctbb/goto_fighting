@@ -234,7 +234,8 @@ class Player(Object):
 
     def super_jump(self):
         print("superjump")
-        self.__jump_speed = -self.JUMP_SPEED * 2
+        if self.y > 0:
+            self.__jump_speed = -self.JUMP_SPEED * 2
 
     def fly_left(self):
         if self.__move_state == MoveState.JUMP:
