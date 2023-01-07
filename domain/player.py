@@ -91,6 +91,7 @@ class Player(Object):
         self.__cooldown_timer = 0
         self.__jump_speed = 0
         self.__move_speed = 0
+        self.__shot_timer = 0
 
     @property
     def hp(self):
@@ -144,8 +145,12 @@ class Player(Object):
         if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
             return
 
+        if self.__shot_timer != 0:
+            return
+
         self.__hit_state = HitState.SHOT
         self.__hit_timer = self.HIT_TIME
+        self.__shot_timer = 1000
 
         if self.direction == Direction.LEFT:
             return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT) / 8, self.direction,
@@ -252,6 +257,9 @@ class Player(Object):
     def update(self):
         if self.__cooldown_timer > 0:
             self.__cooldown_timer -= 1
+
+        if self.__shot_timer != 0:
+            self.__shot_timer -= 1
 
         if self.__hit_timer == 0 and self.__hit_state != HitState.BLOCK:
             self.__hit_state = HitState.NO
