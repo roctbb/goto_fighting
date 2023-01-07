@@ -138,11 +138,13 @@ class Player(Object):
             return
 
         if self.__move_state == MoveState.STAND:
+            print("sitting")
             self.__move_state = MoveState.SIT
             self._height = self.__initial_height // 2
             self.move_by(0, self._height)
 
     def stand(self):
+        print("standing")
         if self.__move_state == MoveState.START:
             return
 
@@ -161,6 +163,13 @@ class Player(Object):
             self.__jump_speed = -self.JUMP_SPEED
             self.move_by(0, self.__jump_speed)
             self.__move_state = MoveState.JUMP
+
+    def fly(self):
+        if self.__move_state == MoveState.JUMP:
+            if self.direction == Direction.LEFT:
+                self.__move_speed = -50
+            if self.direction == Direction.RIGHT:
+                self.__move_speed = 50
 
     def right(self):
         if self.__move_state == MoveState.START:
@@ -202,9 +211,9 @@ class Player(Object):
 
         self.move_by(self.__move_speed, 0)
 
-    # графика
     def draw(self):
         rect = self._screen.canvas.create_image(self.x, self.y,
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
                                                                             self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
+

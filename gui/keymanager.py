@@ -24,7 +24,6 @@ class KeyManager:
 
             for rule in self.__pressed_rules:
                 if len(self.__pressed_history) >= len(rule):
-                    print(self.__pressed_history[-len(rule):], rule)
                     if tuple(self.__pressed_history[-len(rule):]) == rule:
                         obj = self.__pressed_rules[rule]()
 
@@ -32,7 +31,7 @@ class KeyManager:
                             self.__storage.append(obj)
 
     def release(self, key):
-        if key in self.__monitored_keys:
+        if key in self.__monitored_keys and key in self.__current_pressed:
             print(key, "is released")
             self.__current_pressed.discard(key)
             self.__released_history.append(key)

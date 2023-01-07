@@ -38,6 +38,7 @@ class Game:
 
         self.__key_manager1.add_press_rule(('f',), self.__player1.block)
         self.__key_manager1.add_press_rule(('e', 'e', 'z', 'd'), self.__player1.shot)
+        self.__key_manager1.add_press_rule(('d', 'd', 'd'), self.__player1.fly)
 
         self.__key_manager1.add_release_rule(('s',), self.__player1.stand)
         self.__key_manager1.add_release_rule(('d',), self.__player1.stop)
@@ -55,6 +56,7 @@ class Game:
 
         self.__key_manager2.add_press_rule(('h',), self.__player2.block)
         self.__key_manager2.add_press_rule(('j', 'j', 'l', 'u'), self.__player2.shot)
+        self.__key_manager2.add_press_rule(('j', 'j', 'j'), self.__player2.fly)
 
         self.__key_manager2.add_release_rule(('k',), self.__player2.stand)
         self.__key_manager2.add_release_rule(('j',), self.__player2.stop)
@@ -73,7 +75,6 @@ class Game:
     def __released(self, key):
         self.__key_manager1.release(key)
         self.__key_manager2.release(key)
-
 
     @property
     def balls(self):
@@ -105,7 +106,7 @@ class Game:
         mainloop()
 
     def update(self):
-        if self.__screen.frames > 90:
+        if self.__screen.frames == 90:
             self.__player1.fight()
             self.__player2.fight()
 
