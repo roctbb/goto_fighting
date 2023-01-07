@@ -44,7 +44,7 @@ class Game:
         self.__key_manager1.add_press_rule(('q',), self.__player1.hit_leg)
 
         self.__key_manager1.add_press_rule(('f',), self.__player1.block)
-        self.__key_manager1.add_press_rule(('e', 'e', 'z', 'd'), self.__player1.shot)
+        self.__key_manager1.add_press_rule(('e', 'e', 'x', 'd'), self.__player1.shot)
         self.__key_manager1.add_press_rule(('d', 'd', 'd'), self.__player1.fly_right)
         self.__key_manager1.add_press_rule(('a', 'a', 'a'), self.__player1.fly_left)
         self.__key_manager1.add_press_rule(('s', 's', 'w', 'w'), self.__player1.super_jump)
@@ -64,7 +64,7 @@ class Game:
         self.__key_manager2.add_press_rule(('o',), self.__player2.hit_leg)
 
         self.__key_manager2.add_press_rule(('h',), self.__player2.block)
-        self.__key_manager2.add_press_rule(('j', 'j', 'l', 'u'), self.__player2.shot)
+        self.__key_manager2.add_press_rule(('o', 'o', ',', 'l'), self.__player2.shot)
         self.__key_manager2.add_press_rule(('j', 'j', 'j'), self.__player2.fly_left)
         self.__key_manager2.add_press_rule(('l', 'l', 'l'), self.__player2.fly_right)
         self.__key_manager2.add_press_rule(('k', 'k', 'i', 'i'), self.__player2.super_jump)

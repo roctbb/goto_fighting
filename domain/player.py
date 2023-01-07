@@ -13,7 +13,7 @@ class Player(Object):
 
     JUMP_SPEED = 50
 
-    HIT_TIME = 5
+    HIT_TIME = 10
     COOLDOWN = 5
     SHOT_COOLDOWN = 500
 
@@ -71,7 +71,6 @@ class Player(Object):
         (MoveState.SIT, HitState.LEG, MoveState.JUMP, True): 0,
         (MoveState.SIT, HitState.LEG, MoveState.JUMP, False): 0,
 
-
     }
 
     def __init__(self, direction, screen: Screen, skin: Skin):
@@ -110,16 +109,14 @@ class Player(Object):
         self.__hp = max(0, self.__hp - amount)
 
     def receive_attack(self, attack: Attack):
-        coef = self.DAMAGE_RULES.get((attack.move_state, attack.hit_state, self.__move_state, self.__hit_state == HitState.BLOCK))
+        coef = self.DAMAGE_RULES.get(
+            (attack.move_state, attack.hit_state, self.__move_state, self.__hit_state == HitState.BLOCK))
         self.__skin.play_sound("htp")
         if coef:
-
             self.make_damage(int(attack.power * coef))
 
     def receive_ball(self, ball: Ball):
         self.make_damage(ball.attack_power)
-
-
 
     # навыки
     def block(self):
@@ -172,7 +169,6 @@ class Player(Object):
             return Ball(self.x + self.width, self.y + (self.height - Ball.HEIGHT) / 8, self.direction,
                         self.__skin.bullet_animation, self._screen)
 
-
     @property
     def is_attacking(self):
         if self.__hit_state in [HitState.LEG, HitState.HAND]:
@@ -184,9 +180,10 @@ class Player(Object):
         if not self.is_attacking:
             return None
         return Attack(self.__move_state, self.__hit_state, self.attack_power)
+
     def __play_audio_with_delay(self, sound):
         if self.direction == Direction.LEFT:
-            self._screen.window.after(1000, lambda: self.__skin.play_sound(sound))
+            self._screen.window.after(2000, lambda: self.__skin.play_sound(sound))
         else:
             self.__skin.play_sound(sound)
 
@@ -239,7 +236,6 @@ class Player(Object):
         print("superjump")
         self.__jump_speed = -self.JUMP_SPEED * 2
 
-
     def fly_left(self):
         if self.__move_state == MoveState.JUMP:
             self.__move_speed = -50
@@ -270,15 +266,19 @@ class Player(Object):
         self.__move_state = MoveState.STAND
         self.__play_audio_with_delay('start')
 
-
     def win(self):
-        self.__move_state = MoveState.WIN
-        self.__play_audio_with_delay("win")
+        if self.__move_state != MoveState.WIN:
+            self.__move_state = MoveState.WIN
+            self.__hit_state = HitState.NO
+            self.__play_audio_with_delay("win")
 
     def loss(self):
-        self.__move_state = MoveState.LOSS
-        self.__play_audio_with_delay("loss")
-
+        if self.__move_state != MoveState.LOSS:
+            self.__move_state = MoveState.LOSS
+            self.__hit_state = HitState.NO
+            self.__play_audio_with_delay("loss")
+            self._height = self.__initial_height // 2
+            self.move_by(0, self._height)
 
     def update(self):
         if self.__cooldown_timer > 0:
@@ -307,6 +307,3 @@ class Player(Object):
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
                                                                             self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
-
-
-
