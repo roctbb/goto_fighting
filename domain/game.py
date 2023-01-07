@@ -32,6 +32,15 @@ class Game:
         self.__room = None
         pygame.mixer.init()
 
+    def pause(self):
+        self.__interface.pause()
+        if self.__key_manager1.enabled:
+            self.__key_manager1.disable()
+            self.__key_manager2.disable()
+        else:
+            self.__key_manager1.enable()
+            self.__key_manager2.enable()
+
     def __init_rules(self):
 
         # player 1
@@ -78,6 +87,7 @@ class Game:
                                   lambda event: self.__pressed(event.char))
         self.__screen.window.bind("<KeyRelease>",
                                   lambda event: self.__released(event.char))
+        self.__screen.window.bind('<Escape>', lambda event: self.pause())
 
     def __pressed(self, key):
         self.__key_manager1.press(key)
