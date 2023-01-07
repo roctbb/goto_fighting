@@ -21,46 +21,45 @@ class Game:
         self.__balls = []
         self.__pressed_keys = []
         self.__released_keys = []
-        self.__key_manager = None
+        self.__key_manager1 = KeyManager(self.__balls)
+        self.__key_manager2 = KeyManager(self.__balls)
         self.__room = None
 
     def __init_rules(self):
-        self.__key_manager = KeyManager(self.__balls)
 
         # player 1
-        self.__key_manager.add_press_rule(('w',), self.__player1.jump)
-        self.__key_manager.add_press_rule(('s',), self.__player1.sit)
-        self.__key_manager.add_press_rule(('a',), self.__player1.left)
-        self.__key_manager.add_press_rule(('d',), self.__player1.right)
+        self.__key_manager1.add_press_rule(('w',), self.__player1.jump)
+        self.__key_manager1.add_press_rule(('s',), self.__player1.sit)
+        self.__key_manager1.add_press_rule(('a',), self.__player1.left)
+        self.__key_manager1.add_press_rule(('d',), self.__player1.right)
 
-        self.__key_manager.add_press_rule(('e',), self.__player1.hit_hand)
-        self.__key_manager.add_press_rule(('q',), self.__player1.hit_leg)
+        self.__key_manager1.add_press_rule(('e',), self.__player1.hit_hand)
+        self.__key_manager1.add_press_rule(('q',), self.__player1.hit_leg)
 
-        self.__key_manager.add_press_rule(('q',), self.__player1.block)
-        self.__key_manager.add_press_rule(('e', 'e', 'z', 'x'), self.__player1.shot)
+        self.__key_manager1.add_press_rule(('f',), self.__player1.block)
+        self.__key_manager1.add_press_rule(('e', 'e', 'z', 'd'), self.__player1.shot)
 
-        self.__key_manager.add_release_rule(('s',), self.__player1.stand)
-        self.__key_manager.add_release_rule(('d',), self.__player1.stop)
-        self.__key_manager.add_release_rule(('a',), self.__player1.stop)
-        self.__key_manager.add_release_rule(('f',), self.__player1.unblock)
+        self.__key_manager1.add_release_rule(('s',), self.__player1.stand)
+        self.__key_manager1.add_release_rule(('d',), self.__player1.stop)
+        self.__key_manager1.add_release_rule(('a',), self.__player1.stop)
+        self.__key_manager1.add_release_rule(('f',), self.__player1.unblock)
 
         # player 2
-        self.__key_manager.add_press_rule(('i',), self.__player2.jump)
-        self.__key_manager.add_press_rule(('k',), self.__player2.sit)
-        self.__key_manager.add_press_rule(('j',), self.__player2.left)
-        self.__key_manager.add_press_rule(('l',), self.__player2.right)
+        self.__key_manager2.add_press_rule(('i',), self.__player2.jump)
+        self.__key_manager2.add_press_rule(('k',), self.__player2.sit)
+        self.__key_manager2.add_press_rule(('j',), self.__player2.left)
+        self.__key_manager2.add_press_rule(('l',), self.__player2.right)
 
-        self.__key_manager.add_press_rule(('.',), self.__player2.hit_hand)
-        self.__key_manager.add_press_rule((',',), self.__player2.hit_leg)
+        self.__key_manager2.add_press_rule(('u',), self.__player2.hit_hand)
+        self.__key_manager2.add_press_rule(('o',), self.__player2.hit_leg)
 
-        self.__key_manager.add_press_rule(('u',), self.__player2.block)
-        self.__key_manager.add_press_rule(('o', 'o', ',', '.'), self.__player2.shot)
+        self.__key_manager2.add_press_rule(('h',), self.__player2.block)
+        self.__key_manager2.add_press_rule(('j', 'j', 'l', 'u'), self.__player2.shot)
 
-        self.__key_manager.add_release_rule(('k',), self.__player2.stand)
-        self.__key_manager.add_release_rule(('j',), self.__player2.stop)
-        self.__key_manager.add_release_rule(('l',), self.__player2.stop)
-        self.__key_manager.add_release_rule(('h',), self.__player2.unblock)
-
+        self.__key_manager2.add_release_rule(('k',), self.__player2.stand)
+        self.__key_manager2.add_release_rule(('j',), self.__player2.stop)
+        self.__key_manager2.add_release_rule(('l',), self.__player2.stop)
+        self.__key_manager2.add_release_rule(('h',), self.__player2.unblock)
 
     @property
     def balls(self):
@@ -88,18 +87,13 @@ class Game:
 
         self.__init_rules()
 
-        self.__screen.window.bind("<KeyPress>", self.__key_press_handler)
-        self.__screen.window.bind("<KeyRelease>", self.__key_release_handler)
         self.__screen.window.after(20, self.update)
         mainloop()
 
-    def __key_press_handler(self, event):
-        self.__key_manager.press(event.char)
-
-    def __key_release_handler(self, event):
-        self.__key_manager.release(event.char)
-
     def update(self):
+        self.__key_manager1.update()
+        self.__key_manager2.update()
+
         self.__player1.update()
         self.__player2.update()
 

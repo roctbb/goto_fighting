@@ -44,7 +44,6 @@ class Player(Object):
     def direction(self):
         return self._direction
 
-    # получить урон
     def make_damage(self, amount):
         self.__hp = max(0, self.__hp - amount)
 
@@ -66,11 +65,9 @@ class Player(Object):
 
     # навыки
     def block(self):
-        self.__hit_timer = 20
         self.__hit_state = HitState.BLOCK
 
     def unblock(self):
-        self.__hit_timer = 0
         self.__hit_state = HitState.NO
 
     def hit_hand(self):
@@ -118,7 +115,6 @@ class Player(Object):
     def cooldown(self):
         if self.__cooldown_timer == 0:
             self.__cooldown_timer = self.COOLDOWN
-            # перемещение
 
     def sit(self):
         if self.__move_state == MoveState.STAND:
@@ -153,7 +149,7 @@ class Player(Object):
         if self.__cooldown_timer > 0:
             self.__cooldown_timer -= 1
 
-        if self.__hit_timer == 0:
+        if self.__hit_timer == 0 and self.__hit_state != HitState.BLOCK:
             self.__hit_state = HitState.NO
         else:
             self.__hit_timer -= 1
