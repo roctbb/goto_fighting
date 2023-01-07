@@ -124,9 +124,10 @@
     ]
   },
   "sounds" : {
-    "start" : "/skins/tvorog/sounds/ts.ogg",
-    "win" : "/skins/tvorog/sounds/tw.ogg",
-    "loss" : "/skins/tvorog/sounds/tl.ogg"
+    "start" : "/skins/roctbb/sounds/rs.ogg",
+    "win" : "/skins/roctbb/sounds/rw.ogg",
+    "loss" : "/skins/roctbb/sounds/rl.ogg",
+    "hit_to_player" : "/skins/roctbb/sounds/htp.ogg"
   },
   "actions" : {
     "loss": [

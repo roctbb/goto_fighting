@@ -282,3 +282,5 @@ class Player(Object):
                                                                             self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
 
+
+
