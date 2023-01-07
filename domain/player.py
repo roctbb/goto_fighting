@@ -4,6 +4,7 @@ from domain.skin import Skin
 from domain.states import MoveState, HitState, Direction
 from gui.screen import Screen
 from tkinter import NW
+from domain.attack import Attack
 
 
 class Player(Object):
@@ -47,6 +48,15 @@ class Player(Object):
     def make_damage(self, amount):
         self.__hp = max(0, self.__hp - amount)
 
+    def receive_attack(self, attack: Attack):
+        if self.__move_state == MoveState.SIT and attack.move_state == MoveState.STAND:
+            return
+        if self.__move_state == MoveState.JUMP and attack.hit_state == HitState.LEG:
+            return
+        if self.__move_state == MoveState.SIT and attack.hit_state == HitState.HAND:
+            return
+        self.make_damage(attack.power)
+
     # навыки
     def block(self):
         self.__hit_timer = 20
@@ -69,15 +79,23 @@ class Player(Object):
         self.__hit_timer = self.HIT_TIME
 
         if self.direction == Direction.LEFT:
-            return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self.__skin.bullet_animation, self._screen)
+            return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT) / 8, self.direction,
+                        self.__skin.bullet_animation, self._screen)
         else:
-            return Ball(self.x + self.width, self.y + (self.height - Ball.HEIGHT)/8, self.direction, self.__skin.bullet_animation, self._screen)
+            return Ball(self.x + self.width, self.y + (self.height - Ball.HEIGHT) / 8, self.direction,
+                        self.__skin.bullet_animation, self._screen)
 
     @property
     def is_attacking(self):
-        if self.__hit_state != HitState.NO:
+        if self.__hit_state in [HitState.LEG, HitState.HAND]:
             return True
         return False
+
+    @property
+    def current_attack(self):
+        if not self.is_attacking:
+            return None
+        return Attack(self.__move_state, self.__hit_state, self.attack_power)
 
     @property
     def attack_power(self):

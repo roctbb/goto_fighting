@@ -33,8 +33,8 @@ class Game:
         self.__key_manager.add_press_rule(('a',), self.__player1.left)
         self.__key_manager.add_press_rule(('d',), self.__player1.right)
 
-        self.__key_manager.add_press_rule(('x',), self.__player1.hit_hand)
-        self.__key_manager.add_press_rule(('z',), self.__player1.hit_leg)
+        self.__key_manager.add_press_rule(('e',), self.__player1.hit_hand)
+        self.__key_manager.add_press_rule(('q',), self.__player1.hit_leg)
 
         self.__key_manager.add_press_rule(('q',), self.__player1.block)
         self.__key_manager.add_press_rule(('e', 'e', 'z', 'x'), self.__player1.shot)
@@ -110,13 +110,15 @@ class Game:
 
         if self.__player1.intersects_with(self.__player2):
             if self.__player1.get_intersection_with(self.__player2) > self.__player1.width / 3:
-                self.__player2.make_damage(self.__player1.attack_power)
-                self.__player1.cooldown()
+                if self.__player1.is_attacking:
+                    self.__player2.receive_attack(self.__player1.current_attack)
+                    self.__player1.cooldown()
 
         if self.__player2.get_intersection_with(self.__player1) > self.__player2.width / 3:
             if self.__player2.is_attacking:
-                self.__player1.make_damage(self.__player2.attack_power)
-                self.__player2.cooldown()
+                if self.__player2.is_attacking:
+                    self.__player1.receive_attack(self.__player2.current_attack)
+                    self.__player2.cooldown()
 
         for ball in self.__balls:
             if self.__player2.get_intersection_with(ball) > self.__player2.width / 2:
