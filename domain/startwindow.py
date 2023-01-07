@@ -44,6 +44,9 @@ class StartWindow:
     def start(self):
         self.__screen.canvas.bind("<Button-1>", None)
         self.__screen.clear()
+        self.__screen.add_object(
+            self.__screen.canvas.create_rectangle(0,0,self.__screen.width, self.__screen.height, fill="white"))
+
         if self.on_start:
             self.on_start()
 
