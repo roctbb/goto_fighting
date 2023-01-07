@@ -1,11 +1,16 @@
 from tkinter import *
 import json
 
+import pygame
+import pygame as pg
+import sys
+
 from domain.flying_ball import Ball
 from domain.player import Player
 from domain.room import Room
 from domain.skin import Skin
 from domain.states import Direction
+from gui.common import asset_path
 from gui.interface import Interface
 from gui.keymanager import KeyManager
 from gui.screen import Screen
@@ -66,6 +71,8 @@ class Game:
         return self.__balls
 
     def start(self):
+
+
         with open('assets/skins/roctbb/skin.json') as file:
             data1 = json.load(file)
         with open('assets/skins/tvorog/skin.json') as file:
@@ -74,14 +81,17 @@ class Game:
         with open('assets/rooms/room1/room.json') as file:
             room_description = json.load(file)
 
+
         skin1 = Skin(data1)
         skin2 = Skin(data2)
 
         self.__screen.window.update()
 
+
         self.__player1 = Player(Direction.RIGHT, self.__screen, skin1)
         self.__player2 = Player(Direction.LEFT, self.__screen, skin2)
         self.__room = Room(room_description, self.__screen)
+        self.music()
 
         self.__interface = Interface(self.__player1, self.__player2, self.__screen)
 
@@ -89,6 +99,7 @@ class Game:
 
         self.__screen.window.after(20, self.update)
         mainloop()
+
 
     def update(self):
         self.__key_manager1.update()
@@ -151,3 +162,7 @@ class Game:
 
         for ball in self.__balls:
             ball.draw()
+    def music(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load(asset_path('/music/1.ogg'))
+        pygame.mixer.music.play(-1)
