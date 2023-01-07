@@ -123,27 +123,28 @@
   "sounds" : {
     "start" : "/skins/tvorog/sounds/ts.ogg",
     "win" : "/skins/tvorog/sounds/tw.ogg",
-    "loss" : "/skins/tvorog/sounds/tl.ogg"
+    "loss" : "/skins/tvorog/sounds/tl.ogg",
+    "hit_to_player" : "/skins/tvorog/sounds/htp.ogg"
   },
   "actions" : {
     "loss": [
       {
         "len" : 10,
-        "loss" : "/skins/rocbb/actions/loss/1.png"
+        "loss" : "/skins/tvorog/actions/loss/1.png"
       }
     ],
     "win": [
       {
         "len" : 10,
-        "win" : "/skins/rocbb/actions/loss/1.png"
+        "win" : "/skins/tvorog/actions/loss/1.png"
       },
       {
         "len" : 10,
-        "win" : "/skins/rocbb/actions/loss/2.png"
+        "win" : "/skins/tvorog/actions/loss/2.png"
       },
       {
         "len" : 10,
-        "win" : "/skins/rocbb/actions/loss/3.png"
+        "win" : "/skins/tvorog/actions/loss/3.png"
       }
     ]
   }
