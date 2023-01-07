@@ -2,12 +2,12 @@
   "orientation": "left",
   "width": 150,
   "height": 360,
-  "bullet": "/skins/roctbb/bullet/1.gif",
+  "bullet": "/skins/tvorog/bullet/1.gif",
   "start": {
     "no": [
       {
         "len": 10,
-        "image": "/skins/roctbb/start/1.png"
+        "image": "/skins/tvorog/start/1.png"
       }
     ]
   },
@@ -15,47 +15,44 @@
     "no": [
       {
         "len": 10,
-        "image": "/skins/roctbb/stand/no/1.png"
+        "image": "/skins/tvorog/stand/no/1.png"
       },
       {
         "len": 10,
-        "image": "/skins/roctbb/stand/no/2.png"
+        "image": "/skins/tvorog/stand/no/2.png"
       }
     ],
     "block": [
       {
         "len": 10,
-        "image": "/skins/roctbb/stand/block/1.png"
+        "image": "/skins/tvorog/stand/block/1.png"
       }
     ],
     "hand": [
       {
         "len": 5,
-        "image": "/skins/roctbb/stand/hit_hand/1.png"
+        "image": "/skins/tvorog/stand/hit_hand/1.png"
       },
       {
         "len": 5,
-        "image": "/skins/roctbb/stand/no/1.png"
+        "image": "/skins/tvorog/stand/no/1.png"
       },
+
       {
         "len": 5,
-        "image": "/skins/roctbb/stand/hit_hand/2.png"
-      },
-      {
-        "len": 5,
-        "image": "/skins/roctbb/stand/no/2.png"
+        "image": "/skins/tvorog/stand/no/2.png"
       }
     ],
     "leg": [
       {
         "len": 10,
-        "image": "/skins/roctbb/stand/hit_leg/1.png"
+        "image": "/skins/tvorog/stand/hit_leg/1.png"
       }
     ],
     "shot": [
       {
         "len": 10,
-        "image": "/skins/roctbb/stand/shot/1.png"
+        "image": "/skins/tvorog/stand/shot/1.png"
       }
     ]
   },
@@ -63,31 +60,31 @@
     "no": [
       {
         "len": 10,
-        "image": "/skins/roctbb/sit/no/1.png"
+        "image": "/skins/tvorog/sit/no/1.png"
       }
     ],
     "block": [
       {
         "len": 10,
-        "image": "/skins/roctbb/sit/block/1.png"
+        "image": "/skins/tvorog/sit/block/1.png"
       }
     ],
     "hand": [
       {
         "len": 10,
-        "image": "/skins/roctbb/sit/hit_hand/1.png"
+        "image": "/skins/tvorog/sit/hit_hand/1.png"
       }
     ],
     "leg": [
       {
         "len": 10,
-        "image": "/skins/roctbb/sit/hit_leg/1.png"
+        "image": "/skins/tvorog/sit/hit_leg/1.png"
       }
     ],
     "shot": [
       {
         "len": 10,
-        "image": "/skins/roctbb/sit/shot/1.png"
+        "image": "/skins/tvorog/sit/shot/1.png"
       }
     ]
   },
@@ -95,31 +92,31 @@
     "no": [
       {
         "len": 10,
-        "image": "/skins/roctbb/jump/no/1.png"
+        "image": "/skins/tvorog/jump/no/1.png"
       }
     ],
     "block": [
       {
         "len": 10,
-        "image": "/skins/roctbb/jump/block/1.png"
+        "image": "/skins/tvorog/jump/block/1.png"
       }
     ],
     "hand": [
       {
         "len": 10,
-        "image": "/skins/roctbb/jump/hit_hand/1.png"
+        "image": "/skins/tvorog/jump/hit_hand/1.png"
       }
     ],
     "leg": [
       {
         "len": 10,
-        "image": "/skins/roctbb/jump/hit_leg/1.png"
+        "image": "/skins/tvorog/jump/hit_leg/1.png"
       }
     ],
     "shot": [
       {
         "len": 10,
-        "image": "/skins/roctbb/jump/shot/1.png"
+        "image": "/skins/tvorog/jump/shot/1.png"
       }
     ]
   }

@@ -36,7 +36,7 @@ class Game:
         self.__key_manager.add_press_rule(('x',), self.__player1.hit_hand)
         self.__key_manager.add_press_rule(('z',), self.__player1.hit_leg)
 
-        self.__key_manager.add_press_rule(('f',), self.__player1.block)
+        self.__key_manager.add_press_rule(('q',), self.__player1.block)
         self.__key_manager.add_press_rule(('e', 'e', 'z', 'x'), self.__player1.shot)
 
         self.__key_manager.add_release_rule(('s',), self.__player1.stand)
@@ -50,11 +50,11 @@ class Game:
         self.__key_manager.add_press_rule(('j',), self.__player2.left)
         self.__key_manager.add_press_rule(('l',), self.__player2.right)
 
-        self.__key_manager.add_press_rule(('u',), self.__player2.hit_hand)
-        self.__key_manager.add_press_rule(('o',), self.__player2.hit_leg)
+        self.__key_manager.add_press_rule(('.',), self.__player2.hit_hand)
+        self.__key_manager.add_press_rule((',',), self.__player2.hit_leg)
 
-        self.__key_manager.add_press_rule(('h',), self.__player2.block)
-        self.__key_manager.add_press_rule(('j', 'j', 'l', 'u'), self.__player2.shot)
+        self.__key_manager.add_press_rule(('u',), self.__player2.block)
+        self.__key_manager.add_press_rule(('o', 'o', ',', '.'), self.__player2.shot)
 
         self.__key_manager.add_release_rule(('k',), self.__player2.stand)
         self.__key_manager.add_release_rule(('j',), self.__player2.stop)
@@ -68,13 +68,15 @@ class Game:
 
     def start(self):
         with open('assets/skins/roctbb/skin.json') as file:
-            data = json.load(file)
+            data1 = json.load(file)
+        with open('assets/skins/tvorog/skin.json') as file:
+            data2 = json.load(file)
 
         with open('assets/rooms/room1/room.json') as file:
             room_description = json.load(file)
 
-        skin1 = Skin(data)
-        skin2 = Skin(data)
+        skin1 = Skin(data1)
+        skin2 = Skin(data2)
 
         self.__screen.window.update()
 
