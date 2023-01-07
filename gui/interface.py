@@ -16,7 +16,13 @@ class Interface:
     def draw(self):
         if not self.__paused:
             self.__time_left -= (time.time() - self.__last_frame_time)
+        else:
+            self.__screen.add_object(
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
+                                                 text="Pause",
+                                                 fill="white", font=('Helvetica', '100', 'bold')))
         self.__last_frame_time = time.time()
+
 
         color = "red"
 
