@@ -7,6 +7,8 @@ class Interface:
         self.__screen = screen
         self.__player1 = player1
         self.__player2 = player2
+        self.__frames = 0
+        self.__start_time = int(time.time())
 
     def draw(self):
         color = "red"
@@ -22,8 +24,50 @@ class Interface:
         self.__screen.add_object(rect)
 
         if self.__player1.hp == 0:
-            self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Player2 win",
-                                             fill="red", font=('Helvetica', '30', 'bold'))
+            self.__screen.add_object(
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
+                                                 text="Player2 win",
+                                                 fill="red", font=('Helvetica', '30', 'bold')))
         if self.__player2.hp == 0:
-            self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Player1 win",
-                                             fill="red", font=('Helvetica', '30', 'bold'))
+            self.__screen.add_object(
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
+                                                 text="Player1 win",
+                                                 fill="red", font=('Helvetica', '30', 'bold')))
+
+        self.__frames += 1
+
+        if self.__frames < 20:
+            self.__screen.add_object(
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="3",
+                                                 fill="white", font=('Helvetica', '80', 'bold')))
+        if self.__frames < 40 and self.__frames >= 20:
+            self.__screen.add_object(
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="2",
+                                                 fill="white", font=('Helvetica', '80', 'bold')))
+        if self.__frames < 60 and self.__frames >= 40:
+            self.__screen.add_object(
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="1",
+                                                 fill="white", font=('Helvetica', '80', 'bold')))
+        if self.__frames < 90 and self.__frames >= 60:
+            self.__screen.add_object(
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Fight!",
+                                                 fill="white", font=('Helvetica', '80', 'bold')))
+
+        p = 90 -(int(time.time()) - self.__start_time)
+        self.__screen.add_object(
+            self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.1, text=p,
+                                             fill="white", font=('Helvetica', '80', 'bold')))
+        if p == 0:
+            self.__screen.add_object(
+              self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Draw",
+                                                 fill="white", font=('Helvetica', '80', 'bold')))
+
+        if p == -1:
+            quit()
+
+        if self.__player1.hp == 0:
+            pass
+        if self.__player2.hp == 0:
+            pass
+        if p == 0:
+            pass
