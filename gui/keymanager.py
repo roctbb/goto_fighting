@@ -17,31 +17,33 @@ class KeyManager:
         self.__storage = object_storage
 
     def press(self, key):
-        print(key, "is pressed")
-        self.__current_pressed.add(key)
-        self.__pressed_history.append(key)
+        if key in self.__monitored_keys:
+            print(key, "is pressed")
+            self.__current_pressed.add(key)
+            self.__pressed_history.append(key)
 
-        for rule in self.__pressed_rules:
-            if len(self.__pressed_history) >= len(rule):
-                print(self.__pressed_history[-len(rule):], rule)
-                if tuple(self.__pressed_history[-len(rule):]) == rule:
-                    obj = self.__pressed_rules[rule]()
+            for rule in self.__pressed_rules:
+                if len(self.__pressed_history) >= len(rule):
+                    print(self.__pressed_history[-len(rule):], rule)
+                    if tuple(self.__pressed_history[-len(rule):]) == rule:
+                        obj = self.__pressed_rules[rule]()
 
-                    if obj:
-                        self.__storage.append(obj)
+                        if obj:
+                            self.__storage.append(obj)
 
     def release(self, key):
-        print(key, "is released")
-        self.__current_pressed.discard(key)
-        self.__released_history.append(key)
+        if key in self.__monitored_keys:
+            print(key, "is released")
+            self.__current_pressed.discard(key)
+            self.__released_history.append(key)
 
-        for rule in self.__released_rules:
-            if len(self.__released_history) > len(rule):
-                if tuple(self.__released_history[-len(rule):]) == rule:
-                    obj = self.__released_rules[rule]()
+            for rule in self.__released_rules:
+                if len(self.__released_history) >= len(rule):
+                    if tuple(self.__released_history[-len(rule):]) == rule:
+                        obj = self.__released_rules[rule]()
 
-                    if obj:
-                        self.__storage.append(obj)
+                        if obj:
+                            self.__storage.append(obj)
 
     def add_press_rule(self, keys, action):
         for key in keys:
