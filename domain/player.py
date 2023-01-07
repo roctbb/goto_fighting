@@ -15,6 +15,7 @@ class Player(Object):
 
     HIT_TIME = 5
     COOLDOWN = 5
+    SHOT_COOLDOWN = 500
 
     HP = 1000
 
@@ -101,6 +102,10 @@ class Player(Object):
     def direction(self):
         return self._direction
 
+    @property
+    def shot_ready_percent(self):
+        return int(100 - self.__shot_timer * 100 / self.SHOT_COOLDOWN)
+
     def make_damage(self, amount):
         self.__hp = max(0, self.__hp - amount)
 
@@ -156,7 +161,7 @@ class Player(Object):
 
         self.__hit_state = HitState.SHOT
         self.__hit_timer = self.HIT_TIME
-        self.__shot_timer = 1000
+        self.__shot_timer = self.SHOT_COOLDOWN
 
         self.__skin.play_sound("shot")
 

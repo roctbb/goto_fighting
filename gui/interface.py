@@ -15,11 +15,11 @@ class Interface:
         color = "red"
 
         one_hp = (self.__screen.width / 2 - 80) / Player.HP
-        rect = self.__screen.canvas.create_rectangle(0, 0, int(self.__player1.hp * one_hp), 50,
+        rect = self.__screen.canvas.create_rectangle(0, 5, int(self.__player1.hp * one_hp), 50,
                                                      fill=color)
         self.__screen.add_object(rect)
 
-        rect = self.__screen.canvas.create_rectangle(int(self.__screen.width - self.__player2.hp * one_hp), 0,
+        rect = self.__screen.canvas.create_rectangle(int(self.__screen.width - self.__player2.hp * one_hp), 5,
                                                      self.__screen.width, 50,
                                                      fill=color)
         self.__screen.add_object(rect)
@@ -59,7 +59,7 @@ class Interface:
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Fight!",
                                                  fill="white", font=('Helvetica', '80', 'bold')))
 
-        p = 93 -(int(time.time()) - self.__start_time)
+        p = 91 -(int(time.time()) - self.__start_time)
         self.__screen.add_object(
             self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.06, text=p,
                                              fill="white", font=('Helvetica', '80', 'bold')))
@@ -71,3 +71,19 @@ class Interface:
 
         if p == -1:
             quit()
+
+        self.__screen.add_object(self.__screen.canvas.create_rectangle(
+            0, 3, self.__screen.width // 2 - 80, 50,
+            outline="black"))
+
+        self.__screen.add_object(self.__screen.canvas.create_rectangle(
+            self.__screen.width // 2 + 80, 3, self.__screen.width, 50,
+            outline="black"))
+
+        fire = (self.__screen.width / 3) / 100
+        self.__screen.add_object(self.__screen.canvas.create_rectangle(0, 60, int(self.__player1.shot_ready_percent * fire), 100,
+                                                     fill="blue"))
+
+        self.__screen.add_object(
+            self.__screen.canvas.create_rectangle(self.__screen.width - int(self.__player2.shot_ready_percent * fire), 60, self.__screen.width, 100,
+                                                  fill="blue"))
