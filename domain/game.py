@@ -17,6 +17,7 @@ from gui.screen import Screen
 
 
 class Game:
+
     def __init__(self, screen):
         self.hp = 100
         self.__screen = screen
@@ -88,7 +89,6 @@ class Game:
 
     def start(self):
 
-
         with open('assets/skins/roctbb/skin.json') as file:
             data1 = json.load(file)
         with open('assets/skins/tvorog/skin.json') as file:
@@ -97,12 +97,10 @@ class Game:
         with open('assets/rooms/room1/room.json') as file:
             room_description = json.load(file)
 
-
         skin1 = Skin(data1)
         skin2 = Skin(data2)
 
         self.__screen.window.update()
-
 
         self.__player1 = Player(Direction.RIGHT, self.__screen, skin1)
         self.__player2 = Player(Direction.LEFT, self.__screen, skin2)
@@ -115,7 +113,6 @@ class Game:
 
         self.__screen.window.after(20, self.update)
         mainloop()
-
 
     def update(self):
         if self.__screen.frames == 90:
@@ -191,6 +188,7 @@ class Game:
 
         for ball in self.__balls:
             ball.draw()
+
     def music(self):
         pygame.mixer.music.load(asset_path('/music/1.ogg'))
         pygame.mixer.music.play(-1)

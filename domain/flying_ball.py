@@ -7,6 +7,7 @@ class Ball(Object):
     SPEED = 30
     WIDTH = 75
     HEIGHT = 75
+    POWER = 200
 
     def __init__(self, x, y, direction, animation, screen):
         super().__init__(x, y, self.WIDTH, self.HEIGHT, direction, screen)
@@ -35,4 +36,4 @@ class Ball(Object):
 
     @property
     def attack_power(self):
-        return 5
+        return self.POWER
