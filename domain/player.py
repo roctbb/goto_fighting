@@ -237,11 +237,11 @@ class Player(Object):
         self.__jump_speed = -self.JUMP_SPEED * 2
 
     def fly_left(self):
-        if self.__move_state == MoveState.JUMP:
+        if self.__move_state in [MoveState.JUMP, MoveState.SIT]:
             self.__move_speed = -50
 
     def fly_right(self):
-        if self.__move_state == MoveState.JUMP:
+        if self.__move_state in [MoveState.JUMP, MoveState.SIT]:
             self.__move_speed = 50
 
     def right(self):
