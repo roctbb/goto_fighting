@@ -45,7 +45,9 @@ class Game:
 
         self.__key_manager1.add_press_rule(('f',), self.__player1.block)
         self.__key_manager1.add_press_rule(('e', 'e', 'z', 'd'), self.__player1.shot)
-        self.__key_manager1.add_press_rule(('d', 'd', 'd'), self.__player1.fly)
+        self.__key_manager1.add_press_rule(('d', 'd', 'd'), self.__player1.fly_right)
+        self.__key_manager1.add_press_rule(('a', 'a', 'a'), self.__player1.fly_left)
+        self.__key_manager1.add_press_rule(('s', 's', 'w', 'w'), self.__player1.super_jump)
 
         self.__key_manager1.add_release_rule(('s',), self.__player1.stand)
         self.__key_manager1.add_release_rule(('d',), self.__player1.stop)
@@ -63,7 +65,9 @@ class Game:
 
         self.__key_manager2.add_press_rule(('h',), self.__player2.block)
         self.__key_manager2.add_press_rule(('j', 'j', 'l', 'u'), self.__player2.shot)
-        self.__key_manager2.add_press_rule(('j', 'j', 'j'), self.__player2.fly)
+        self.__key_manager2.add_press_rule(('j', 'j', 'j'), self.__player2.fly_left)
+        self.__key_manager2.add_press_rule(('l', 'l', 'l'), self.__player2.fly_right)
+        self.__key_manager2.add_press_rule(('k', 'k', 'i', 'i'), self.__player2.super_jump)
 
         self.__key_manager2.add_release_rule(('k',), self.__player2.stand)
         self.__key_manager2.add_release_rule(('j',), self.__player2.stop)
@@ -120,13 +124,13 @@ class Game:
             self.__player2.fight()
 
         if self.__player1.hp == 0:
-            self.__player1.lose()
+            self.__player1.loss()
 
             if self.__player2.hp != 0:
                 self.__player2.win()
 
         if self.__player2.hp == 0:
-            self.__player2.lose()
+            self.__player2.loss()
 
             if self.__player1 != 0:
                 self.__player1.win()
@@ -154,11 +158,11 @@ class Game:
         for ball in self.__balls:
             if self.__player2.get_intersection_with(ball) > self.__player2.width / 2:
                 print("ball intersects with player 2")
-                self.__player2.make_damage(ball.attack_power)
+                self.__player2.receive_ball(ball)
                 ball.die()
             if self.__player1.get_intersection_with(ball) > self.__player1.width / 2:
                 print("ball intersects with player 1")
-                self.__player1.make_damage(ball.attack_power)
+                self.__player1.receive_ball(ball)
                 ball.die()
 
         if self.__player1.x < self.__player2.x and self.__player1.direction == Direction.LEFT:

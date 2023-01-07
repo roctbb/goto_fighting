@@ -4,7 +4,7 @@ from enum import Enum
 class MoveState(Enum):
     START = "start"
     WIN = "win"
-    LOSE = "lose"
+    LOSS = "loss"
     STAND = "stand"
     SIT = "sit"
     JUMP = "jump"

@@ -127,7 +127,11 @@
     "start" : "/skins/roctbb/sounds/rs.ogg",
     "win" : "/skins/roctbb/sounds/rw.ogg",
     "loss" : "/skins/roctbb/sounds/rl.ogg",
-    "hit_to_player" : "/skins/roctbb/sounds/htp.ogg"
+    "hit_to_player" : "/skins/roctbb/sounds/htp.ogg",
+    "hit" : "/skins/roctbb/sounds/hit.ogg",
+    "jump" : "/skins/roctbb/sounds/jump.ogg",
+    "shot" : "/skins/roctbb/sounds/shot.ogg"
+
   },
   "actions" : {
     "loss": [

@@ -77,10 +77,7 @@ class Object:
             else:
                 self._y = self._screen.height - self.height
         elif vy < 0:
-            if self.y + vy >= 0:
-                self._y += vy
-            else:
-                self._y = 0
+            self._y += vy
 
     def move_to(self, x, y):
         self._x = x

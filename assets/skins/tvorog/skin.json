@@ -124,7 +124,10 @@
     "start" : "/skins/tvorog/sounds/ts.ogg",
     "win" : "/skins/tvorog/sounds/tw.ogg",
     "loss" : "/skins/tvorog/sounds/tl.ogg",
-    "hit_to_player" : "/skins/tvorog/sounds/htp.ogg"
+    "hit_to_player" : "/skins/tvorog/sounds/htp.ogg",
+    "hit" : "/skins/tvorog/sounds/hit.ogg",
+    "jump" : "/skins/tvorog/sounds/jump.ogg",
+    "shot" : "/skins/tvorog/sounds/shot.ogg"
   },
   "actions" : {
     "loss": [

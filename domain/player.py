@@ -105,44 +105,50 @@ class Player(Object):
         self.__hp = max(0, self.__hp - amount)
 
     def receive_attack(self, attack: Attack):
-
         coef = self.DAMAGE_RULES.get((attack.move_state, attack.hit_state, self.__move_state, self.__hit_state == HitState.BLOCK))
-
+        self.__skin.play_sound("htp")
         if coef:
+
             self.make_damage(int(attack.power * coef))
+
+    def receive_ball(self, ball: Ball):
+        self.make_damage(ball.attack_power)
+
 
 
     # навыки
     def block(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         self.__hit_timer = 20
         self.__hit_state = HitState.BLOCK
 
     def unblock(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         self.__hit_timer = 0
         self.__hit_state = HitState.NO
 
     def hit_hand(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         self.__hit_state = HitState.HAND
         self.__hit_timer = self.HIT_TIME
+        self.__skin.play_sound("hit")
 
     def hit_leg(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         self.__hit_state = HitState.LEG
         self.__hit_timer = self.HIT_TIME
+        self.__skin.play_sound("hit")
 
     def shot(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         if self.__shot_timer != 0:
@@ -152,12 +158,15 @@ class Player(Object):
         self.__hit_timer = self.HIT_TIME
         self.__shot_timer = 1000
 
+        self.__skin.play_sound("shot")
+
         if self.direction == Direction.LEFT:
             return Ball(self.x - Ball.WIDTH, self.y + (self.height - Ball.HEIGHT) / 8, self.direction,
                         self.__skin.bullet_animation, self._screen)
         else:
             return Ball(self.x + self.width, self.y + (self.height - Ball.HEIGHT) / 8, self.direction,
                         self.__skin.bullet_animation, self._screen)
+
 
     @property
     def is_attacking(self):
@@ -170,6 +179,11 @@ class Player(Object):
         if not self.is_attacking:
             return None
         return Attack(self.__move_state, self.__hit_state, self.attack_power)
+    def __play_audio_with_delay(self, sound):
+        if self.direction == Direction.LEFT:
+            self._screen.window.after(1000, lambda: self.__skin.play_sound(sound))
+        else:
+            self.__skin.play_sound(sound)
 
     @property
     def attack_power(self):
@@ -178,8 +192,6 @@ class Player(Object):
                 return self.LEG_POWER
             if self.__hit_state == HitState.HAND:
                 return self.HAND_POWER
-            if self.__hit_state == HitState.SHOT:
-                return self.SHOT_POWER
         return 0
 
     def cooldown(self):
@@ -187,7 +199,7 @@ class Player(Object):
             self.__cooldown_timer = self.COOLDOWN
 
     def sit(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         if self.__move_state == MoveState.STAND:
@@ -198,7 +210,7 @@ class Player(Object):
 
     def stand(self):
         print("standing")
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         if self.__move_state == MoveState.SIT:
@@ -207,7 +219,8 @@ class Player(Object):
             self.move_by(0, self._height)
 
     def jump(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        self.__skin.play_sound("jump")
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         if self.__jump_speed == 0:
@@ -217,41 +230,49 @@ class Player(Object):
             self.move_by(0, self.__jump_speed)
             self.__move_state = MoveState.JUMP
 
-    def fly(self):
+    def super_jump(self):
+        print("superjump")
+        self.__jump_speed = -self.JUMP_SPEED * 2
+
+
+    def fly_left(self):
         if self.__move_state == MoveState.JUMP:
-            if self.direction == Direction.LEFT:
-                self.__move_speed = -50
-            if self.direction == Direction.RIGHT:
-                self.__move_speed = 50
+            self.__move_speed = -50
+
+    def fly_right(self):
+        if self.__move_state == MoveState.JUMP:
+            self.__move_speed = 50
 
     def right(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         self.__move_speed = 10
 
     def left(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         self.__move_speed = -10
 
     def stop(self):
-        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSE]:
+        if self.__move_state in [MoveState.START, MoveState.WIN, MoveState.LOSS]:
             return
 
         self.__move_speed = 0
 
     def fight(self):
         self.__move_state = MoveState.STAND
-        self.__skin.play_sound('start')
+        self.__play_audio_with_delay('start')
 
 
     def win(self):
         self.__move_state = MoveState.WIN
+        self.__play_audio_with_delay("win")
 
-    def lose(self):
-        self.__move_state = MoveState.LOSE
+    def loss(self):
+        self.__move_state = MoveState.LOSS
+        self.__play_audio_with_delay("loss")
 
 
     def update(self):
