@@ -8,13 +8,10 @@ import os
 class StartWindow:
     def __init__(self, screen: Screen):
         self.__screen = screen
-        #self.button_start = Button(self.__screen.window, text="Начать игру!", width=200, height=12,
-        #                           font=('Helvetica', '20', 'bold'), command=self.bruh)
-        #self.button_start.pack()
 
         self.on_start = None
 
-        self.__screen.canvas.bind("<Button-1>", self.__click)
+
 
     def __click(self, event):
         print(event)
@@ -25,6 +22,7 @@ class StartWindow:
 
 
     def draw(self):
+        self.__screen.canvas.bind("<Button-1>", self.__click)
         self.__screen.clear()
         print(self.__screen.width // 4, self.__screen.height // 4,
                                               2 * self.__screen.width // 3, 2 * self.__screen.height // 3)
@@ -44,6 +42,8 @@ class StartWindow:
                                              fill="white", font=('Helvetica', '80', 'bold')))
 
     def start(self):
+        self.__screen.canvas.bind("<Button-1>", None)
+        self.__screen.clear()
         if self.on_start:
             self.on_start()
 
