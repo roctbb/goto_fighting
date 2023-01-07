@@ -19,7 +19,6 @@ class KeyManager:
 
     def press(self, key):
         if self.__enabled and key in self.__monitored_keys and key not in self.__current_pressed:
-            print(key, "is pressed")
             self.__current_pressed.add(key)
             self.__pressed_history.append(key)
 
@@ -33,7 +32,6 @@ class KeyManager:
 
     def release(self, key):
         if self.__enabled and key in self.__monitored_keys and key in self.__current_pressed:
-            print(key, "is released")
             self.__current_pressed.discard(key)
             self.__released_history.append(key)
 

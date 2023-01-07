@@ -16,6 +16,10 @@ class Screen:
     def frames(self):
         return self.__frames
 
+    def reset(self):
+        self.clear()
+        self.__frames = 0
+
     @property
     def width(self):
         return self.__canvas.winfo_width()
