@@ -9,8 +9,12 @@ class Screen:
         self.__canvas = canvas
         self.__objects = []
         self.__window = window
-
+        self.__frames = 0
         canvas.configure(bg='white')
+
+    @property
+    def frames(self):
+        return self.__frames
 
     @property
     def width(self):
@@ -28,6 +32,8 @@ class Screen:
         self.__objects.append(obj)
 
     def clear(self):
+        self.__frames += 1
+
         for obj in self.__objects:
             self.__canvas.delete(obj)
         self.__objects = []
@@ -35,5 +41,3 @@ class Screen:
     @property
     def window(self):
         return self.__window
-
-

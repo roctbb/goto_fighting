@@ -16,38 +16,33 @@ class KeyManager:
 
         self.__storage = object_storage
 
-    def update(self):
-        for key in copy(self.__current_pressed):
-            if not keyboard.is_pressed(key):
-                self.release(key)
-
-        for key in self.__monitored_keys:
-            if key not in self.__current_pressed and keyboard.is_pressed(key):
-                self.press(key)
-
     def press(self, key):
-        self.__current_pressed.add(key)
-        self.__pressed_history.append(key)
+        if key in self.__monitored_keys:
+            print(key, "is pressed")
+            self.__current_pressed.add(key)
+            self.__pressed_history.append(key)
 
-        for rule in self.__pressed_rules:
-            if len(self.__pressed_history) >= len(rule):
-                if tuple(self.__pressed_history[-len(rule):]) == rule:
-                    obj = self.__pressed_rules[rule]()
+            for rule in self.__pressed_rules:
+                if len(self.__pressed_history) >= len(rule):
+                    if tuple(self.__pressed_history[-len(rule):]) == rule:
+                        obj = self.__pressed_rules[rule]()
 
-                    if obj:
-                        self.__storage.append(obj)
+                        if obj:
+                            self.__storage.append(obj)
 
     def release(self, key):
-        self.__current_pressed.remove(key)
-        self.__released_history.append(key)
+        if key in self.__monitored_keys and key in self.__current_pressed:
+            print(key, "is released")
+            self.__current_pressed.discard(key)
+            self.__released_history.append(key)
 
-        for rule in self.__released_rules:
-            if len(self.__released_history) > len(rule):
-                if tuple(self.__released_history[-len(rule):]) == rule:
-                    obj = self.__released_rules[rule]()
+            for rule in self.__released_rules:
+                if len(self.__released_history) >= len(rule):
+                    if tuple(self.__released_history[-len(rule):]) == rule:
+                        obj = self.__released_rules[rule]()
 
-                    if obj:
-                        self.__storage.append(obj)
+                        if obj:
+                            self.__storage.append(obj)
 
     def add_press_rule(self, keys, action):
         for key in keys:

@@ -8,9 +8,9 @@ from domain.attack import Attack
 
 
 class Player(Object):
-    LEG_POWER = 1
-    HAND_POWER = 0.5
-    SHOT_POWER = 1.5
+    LEG_POWER = 15
+    HAND_POWER = 10
+    SHOT_POWER = 20
 
     JUMP_SPEED = 50
 
@@ -29,7 +29,7 @@ class Player(Object):
         self.__hp = 100
         self.__skin = skin
         self.__speed = 10
-        self.__move_state = MoveState.STAND
+        self.__move_state = MoveState.START
         self.__hit_state = HitState.NO
         self.__hit_timer = 0
         self.__cooldown_timer = 0
@@ -54,31 +54,48 @@ class Player(Object):
             return
         if self.__move_state == MoveState.SIT and attack.hit_state == HitState.HAND:
             return
-        if self.__move_state == HitState.BLOCK:
+        if self.__hit_state == HitState.BLOCK:
             if attack.hit_state == HitState.HAND:
                 self.make_damage(int(attack.power * 0.2))
-                print(attack.power)
             if attack.hit_state == HitState.LEG:
                 self.make_damage(int(attack.power * 0.3))
                 print(attack.power)
+            return
         self.make_damage(attack.power)
 
     # навыки
     def block(self):
+        if self.__move_state == MoveState.START:
+            return
+
+        self.__hit_timer = 20
         self.__hit_state = HitState.BLOCK
 
     def unblock(self):
+        if self.__move_state == MoveState.START:
+            return
+
+        self.__hit_timer = 0
         self.__hit_state = HitState.NO
 
     def hit_hand(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__hit_state = HitState.HAND
         self.__hit_timer = self.HIT_TIME
 
     def hit_leg(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__hit_state = HitState.LEG
         self.__hit_timer = self.HIT_TIME
 
     def shot(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__hit_state = HitState.SHOT
         self.__hit_timer = self.HIT_TIME
 
@@ -117,18 +134,29 @@ class Player(Object):
             self.__cooldown_timer = self.COOLDOWN
 
     def sit(self):
+        if self.__move_state == MoveState.START:
+            return
+
         if self.__move_state == MoveState.STAND:
+            print("sitting")
             self.__move_state = MoveState.SIT
             self._height = self.__initial_height // 2
             self.move_by(0, self._height)
 
     def stand(self):
+        print("standing")
+        if self.__move_state == MoveState.START:
+            return
+
         if self.__move_state == MoveState.SIT:
             self._height = self.__initial_height
             self.__move_state = MoveState.STAND
             self.move_by(0, self._height)
 
     def jump(self):
+        if self.__move_state == MoveState.START:
+            return
+
         if self.__jump_speed == 0:
             self.stand()
 
@@ -136,14 +164,33 @@ class Player(Object):
             self.move_by(0, self.__jump_speed)
             self.__move_state = MoveState.JUMP
 
+    def fly(self):
+        if self.__move_state == MoveState.JUMP:
+            if self.direction == Direction.LEFT:
+                self.__move_speed = -50
+            if self.direction == Direction.RIGHT:
+                self.__move_speed = 50
+
     def right(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__move_speed = 10
 
     def left(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__move_speed = -10
 
     def stop(self):
+        if self.__move_state == MoveState.START:
+            return
+
         self.__move_speed = 0
+
+    def fight(self):
+        self.__move_state = MoveState.STAND
 
     def update(self):
         if self.__cooldown_timer > 0:
@@ -164,9 +211,9 @@ class Player(Object):
 
         self.move_by(self.__move_speed, 0)
 
-    # графика
     def draw(self):
         rect = self._screen.canvas.create_image(self.x, self.y,
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
                                                                             self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
+
