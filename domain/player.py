@@ -10,14 +10,68 @@ from domain.attack import Attack
 class Player(Object):
     LEG_POWER = 15
     HAND_POWER = 10
-    SHOT_POWER = 20
 
     JUMP_SPEED = 50
 
     HIT_TIME = 5
     COOLDOWN = 5
 
-    HP = 100
+    HP = 1000
+
+    DAMAGE_RULES = {
+        # противник противник мы блок
+        # ------------------------ STAND -----------------------------
+        (MoveState.JUMP, HitState.HAND, MoveState.STAND, True): 0,
+        (MoveState.JUMP, HitState.HAND, MoveState.STAND, False): 0,
+        (MoveState.JUMP, HitState.LEG, MoveState.STAND, True): 0.5,
+        (MoveState.JUMP, HitState.LEG, MoveState.STAND, False): 1.5,
+
+        (MoveState.STAND, HitState.HAND, MoveState.STAND, True): 0.3,
+        (MoveState.STAND, HitState.HAND, MoveState.STAND, False): 1,
+        (MoveState.STAND, HitState.LEG, MoveState.STAND, True): 0.3,
+        (MoveState.STAND, HitState.LEG, MoveState.STAND, False): 1,
+
+        (MoveState.SIT, HitState.HAND, MoveState.STAND, True): 1,
+        (MoveState.SIT, HitState.HAND, MoveState.STAND, False): 1,
+        (MoveState.SIT, HitState.LEG, MoveState.STAND, True): 1,
+        (MoveState.SIT, HitState.LEG, MoveState.STAND, False): 1,
+
+        # ------------------------ SIT -----------------------------
+
+        (MoveState.JUMP, HitState.HAND, MoveState.SIT, True): 0,
+        (MoveState.JUMP, HitState.HAND, MoveState.SIT, False): 0,
+        (MoveState.JUMP, HitState.LEG, MoveState.SIT, True): 0.5,
+        (MoveState.JUMP, HitState.LEG, MoveState.SIT, False): 1.5,
+
+        (MoveState.STAND, HitState.HAND, MoveState.SIT, True): 0,
+        (MoveState.STAND, HitState.HAND, MoveState.SIT, False): 0,
+        (MoveState.STAND, HitState.LEG, MoveState.SIT, True): 0.5,
+        (MoveState.STAND, HitState.LEG, MoveState.SIT, False): 1.5,
+
+        (MoveState.SIT, HitState.HAND, MoveState.SIT, True): 0.3,
+        (MoveState.SIT, HitState.HAND, MoveState.SIT, False): 1,
+        (MoveState.SIT, HitState.LEG, MoveState.SIT, True): 0.5,
+        (MoveState.SIT, HitState.LEG, MoveState.SIT, False): 1.5,
+
+        # ----------------------- JUMP --------------------------
+
+        (MoveState.JUMP, HitState.HAND, MoveState.JUMP, True): 0.3,
+        (MoveState.JUMP, HitState.HAND, MoveState.JUMP, False): 1,
+        (MoveState.JUMP, HitState.LEG, MoveState.JUMP, True): 0.3,
+        (MoveState.JUMP, HitState.LEG, MoveState.JUMP, False): 1,
+
+        (MoveState.STAND, HitState.HAND, MoveState.JUMP, True): 0.3,
+        (MoveState.STAND, HitState.HAND, MoveState.JUMP, False): 1,
+        (MoveState.STAND, HitState.LEG, MoveState.JUMP, True): 0.3,
+        (MoveState.STAND, HitState.LEG, MoveState.JUMP, False): 1,
+
+        (MoveState.SIT, HitState.HAND, MoveState.JUMP, True): 0,
+        (MoveState.SIT, HitState.HAND, MoveState.JUMP, False): 0,
+        (MoveState.SIT, HitState.LEG, MoveState.JUMP, True): 0,
+        (MoveState.SIT, HitState.LEG, MoveState.JUMP, False): 0,
+
+
+    }
 
     def __init__(self, direction, screen: Screen, skin: Skin):
         if direction == Direction.RIGHT:
@@ -50,20 +104,12 @@ class Player(Object):
         self.__hp = max(0, self.__hp - amount)
 
     def receive_attack(self, attack: Attack):
-        if self.__move_state == MoveState.SIT and attack.move_state == MoveState.STAND:
-            return
-        if self.__move_state == MoveState.JUMP and attack.hit_state == HitState.LEG:
-            return
-        if self.__move_state == MoveState.SIT and attack.hit_state == HitState.HAND:
-            return
-        if self.__hit_state == HitState.BLOCK:
-            if attack.hit_state == HitState.HAND:
-                self.make_damage(int(attack.power * 0.2))
-            if attack.hit_state == HitState.LEG:
-                self.make_damage(int(attack.power * 0.3))
-                print(attack.power)
-            return
-        self.make_damage(attack.power)
+
+        coef = self.DAMAGE_RULES.get((attack.move_state, attack.hit_state, self.__move_state, self.__hit_state == HitState.BLOCK))
+
+        if coef:
+            self.make_damage(int(attack.power * coef))
+
 
     # навыки
     def block(self):
@@ -227,3 +273,4 @@ class Player(Object):
                                                 image=self.__skin.get_image(self.direction, self.__move_state,
                                                                             self.__hit_state), anchor=NW)
         self._screen.add_object(rect)
+

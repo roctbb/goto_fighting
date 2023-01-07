@@ -14,12 +14,12 @@ class Interface:
     def draw(self):
         color = "red"
 
-        one_hp = (self.__screen.width // 2 - 50) // Player.HP
-        rect = self.__screen.canvas.create_rectangle(0, 0, self.__player1.hp * one_hp, 50,
+        one_hp = (self.__screen.width / 2 - 80) / Player.HP
+        rect = self.__screen.canvas.create_rectangle(0, 0, int(self.__player1.hp * one_hp), 50,
                                                      fill=color)
         self.__screen.add_object(rect)
 
-        rect = self.__screen.canvas.create_rectangle(self.__screen.width - self.__player2.hp * one_hp, 0,
+        rect = self.__screen.canvas.create_rectangle(int(self.__screen.width - self.__player2.hp * one_hp), 0,
                                                      self.__screen.width, 50,
                                                      fill=color)
         self.__screen.add_object(rect)
