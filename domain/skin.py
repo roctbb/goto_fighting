@@ -1,7 +1,7 @@
 import pygame
 
 from domain.flying_ball import Ball
-from domain.states import *
+from gui.states import *
 from gui.animation import Animation
 from copy import copy
 

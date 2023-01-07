@@ -42,15 +42,11 @@ class Interface:
         if self.__player1.hp == 0:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
-                                                 text="Player2 win",
-                                                 fill="white", font=('Helvetica', '30', 'bold')))
-                                                 text=f"{self.__player2.name} win",
-                                                 fill="red", font=('Helvetica', '100', 'bold')))
+                                                 text=f"{self.__player2.name} win", fill="red",
+                                                 font=('Helvetica', '100', 'bold')))
         if self.__player2.hp == 0:
             self.__screen.add_object(
                 self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
-                                                 text="Player1 win",
-                                                 fill="white", font=('Helvetica', '30', 'bold')))
                                                  text=f"{self.__player1.name} win",
                                                  fill="red", font=('Helvetica', '100', 'bold')))
 
@@ -71,7 +67,8 @@ class Interface:
 
         if self.__screen.frames < 90 and self.__screen.frames >= 60:
             self.__screen.add_object(
-                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5, text="Fight!",
+                self.__screen.canvas.create_text(self.__screen.width * 0.5, self.__screen.height * 0.5,
+                                                 text="Fight!",
                                                  fill="white", font=('Helvetica', '80', 'bold')))
 
         p = int(self.__time_left)
@@ -97,8 +94,7 @@ class Interface:
                                                   fill="blue"))
 
         self.__screen.add_object(
-            self.__screen.canvas.create_rectangle(self.__screen.width - int(self.__player2.shot_ready_percent * fire),
-                                                  60, self.__screen.width, 100,
+            self.__screen.canvas.create_rectangle(self.__screen.width - int(self.__player2.shot_ready_percent * fire), 60, self.__screen.width, 100,
                                                   fill="blue"))
 
         self.__screen.add_object(self.__screen.canvas.create_rectangle(

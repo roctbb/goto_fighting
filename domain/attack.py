@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from domain.states import *
+from gui.states import *
 
 
 @dataclass

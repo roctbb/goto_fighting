@@ -1,5 +1,5 @@
 from domain.object import Object
-from domain.states import Direction
+from gui.states import Direction
 
 
 class Ball(Object):

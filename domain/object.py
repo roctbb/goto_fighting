@@ -1,4 +1,4 @@
-from domain.states import Direction
+from gui.states import Direction
 
 
 class Object:

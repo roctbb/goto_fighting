@@ -10,6 +10,9 @@ class Screen:
         self.__objects = []
         self.__window = window
         self.__frames = 0
+
+        self.__window.update()
+
         canvas.configure(bg='white')
 
     @property

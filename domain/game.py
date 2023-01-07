@@ -2,18 +2,14 @@ from tkinter import *
 import json
 
 import pygame
-import pygame as pg
-import sys
 
-from domain.flying_ball import Ball
 from domain.player import Player
 from domain.room import Room
 from domain.skin import Skin
-from domain.states import Direction
+from gui.states import Direction
 from gui.common import asset_path
 from gui.interface import Interface
 from gui.keymanager import KeyManager
-from gui.screen import Screen
 
 
 class Game:
@@ -125,8 +121,6 @@ class Game:
 
         skin1 = Skin(data1)
         skin2 = Skin(data2)
-
-        self.__screen.window.update()
 
         self.__player1 = Player(Direction.RIGHT, self.__screen, skin1)
         self.__player2 = Player(Direction.LEFT, self.__screen, skin2)

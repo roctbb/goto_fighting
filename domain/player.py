@@ -1,7 +1,7 @@
 from domain.flying_ball import Ball
 from domain.object import Object
 from domain.skin import Skin
-from domain.states import MoveState, HitState, Direction
+from gui.states import MoveState, HitState, Direction
 from gui.screen import Screen
 from tkinter import NW
 from domain.attack import Attack
@@ -115,12 +115,13 @@ class Player(Object):
     def receive_attack(self, attack: Attack):
         coef = self.DAMAGE_RULES.get(
             (attack.move_state, attack.hit_state, self.__move_state, self.__hit_state == HitState.BLOCK))
-        self.__skin.play_sound("htp")
+
         if coef:
             self.make_damage(int(attack.power * coef))
 
     def receive_ball(self, ball: Ball):
         self.make_damage(ball.attack_power)
+        self.__skin.play_sound("hit_to_playera")
 
     # навыки
     def block(self):
