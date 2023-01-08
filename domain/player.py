@@ -121,7 +121,7 @@ class Player(Object):
 
     def receive_ball(self, ball: Ball):
         self.make_damage(ball.attack_power)
-        self.__skin.play_sound("hit_to_playera")
+        self.__skin.play_sound("hit_to_player")
 
     # навыки
     def block(self):
